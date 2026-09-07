@@ -2,6 +2,20 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.4.0] - 2026-09-07
+
+### Added
+- Seed photos (Unsplash URLs by category)
+- Detailed usage instructions (EN/FR/AR) for each category
+- Conservation/storage tips (EN/FR/AR) for each category
+- Bilingual variety prefixes (EN/AR)
+
+### Changed
+- Regenerated 10,000 seeds with expanded data fields:
+  - `photo` - category-specific image URL
+  - `usage_en/fr/ar` - how and when to plant
+  - `conservation_en/fr/ar` - how to store and preserve seeds
+
 ## [1.3.0] - 2026-09-07
 
 ### Changed
