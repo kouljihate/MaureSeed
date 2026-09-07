@@ -2,6 +2,14 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.7.0] - 2026-09-07
+
+### Changed
+- Regenerated 10,000 seeds with seed-specific photos
+- Photos now match actual seed/plant type (e.g., tomato photos for tomatoes)
+- Comprehensive photo mapping for 80+ seed varieties
+- Fallback to category-specific default photos
+
 ## [1.6.0] - 2026-09-07
 
 ### Fixed

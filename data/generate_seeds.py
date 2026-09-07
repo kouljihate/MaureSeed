@@ -7,6 +7,366 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 COUNTRIES = ["morocco", "algeria", "tunisia", "mauritania", "mali"]
 
+# Seed-specific photo URLs (Unsplash photo IDs)
+SEED_PHOTOS = {
+    "tomato": [
+        "https://images.unsplash.com/photo-1546470427-0d4db154ceb8?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1592921870789-04563d55041c?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1558818498-28c1e002b655?w=400&h=300&fit=crop",
+    ],
+    "pepper": [
+        "https://images.unsplash.com/photo-1583119022896-8a8b77c22f5e?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1563565375-f3fdfdbefa83?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1583119022896-8a8b77c22f5e?w=400&h=300&fit=crop",
+    ],
+    "eggplant": [
+        "https://images.unsplash.com/photo-1615484477778-ca3b77940c25?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1615484477778-ca3b77940c25?w=400&h=300&fit=crop",
+    ],
+    "zucchini": [
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+    ],
+    "cucumber": [
+        "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1449300079323-02e209d9d3a6?w=400&h=300&fit=crop",
+    ],
+    "pumpkin": [
+        "https://images.unsplash.com/photo-1509622905150-fa66d3906e09?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1570586437263-ab629fccc818?w=400&h=300&fit=crop",
+    ],
+    "melon": [
+        "https://images.unsplash.com/photo-1571575173700-afb9492e6a50?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1571575173700-afb9492e6a50?w=400&h=300&fit=crop",
+    ],
+    "watermelon": [
+        "https://images.unsplash.com/photo-1563114773-84221bd62daa?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&h=300&fit=crop",
+    ],
+    "okra": [
+        "https://images.unsplash.com/photo-1596797038530-2c107229654b?w=400&h=300&fit=crop",
+    ],
+    "carrot": [
+        "https://images.unsplash.com/photo-1447175008436-054170c2e979?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1598170845058-32b9d6a5da37?w=400&h=300&fit=crop",
+    ],
+    "turnip": [
+        "https://images.unsplash.com/photo-1594057687713-5fd14eed1c15?w=400&h=300&fit=crop",
+    ],
+    "radish": [
+        "https://images.unsplash.com/photo-1582284540020-8acbe03f4924?w=400&h=300&fit=crop",
+    ],
+    "beet": [
+        "https://images.unsplash.com/photo-1597362925123-77861d3fbac7?w=400&h=300&fit=crop",
+    ],
+    "onion": [
+        "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1618512496248-a07fe83aa8cb?w=400&h=300&fit=crop",
+    ],
+    "garlic": [
+        "https://images.unsplash.com/photo-1615477550926-01f5597a3e8b?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1540148426945-8cf22a8bcb19?w=400&h=300&fit=crop",
+    ],
+    "leek": [
+        "https://images.unsplash.com/photo-1558818498-28c1e002b655?w=400&h=300&fit=crop",
+    ],
+    "celery": [
+        "https://images.unsplash.com/photo-1515586838455-8f8f940d6853?w=400&h=300&fit=crop",
+    ],
+    "lettuce": [
+        "https://images.unsplash.com/photo-1556801712-76c8eb07af38?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1515586838455-8f8f940d6853?w=400&h=300&fit=crop",
+    ],
+    "spinach": [
+        "https://images.unsplash.com/photo-1576045057995-568f588f82fb?w=400&h=300&fit=crop",
+    ],
+    "chard": [
+        "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&h=300&fit=crop",
+    ],
+    "cabbage": [
+        "https://images.unsplash.com/photo-1594282486756-7e4b10782b75?w=400&h=300&fit=crop",
+    ],
+    "broccoli": [
+        "https://images.unsplash.com/photo-1459411552884-841db9b3cc2a?w=400&h=300&fit=crop",
+    ],
+    "cauliflower": [
+        "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
+    ],
+    "artichoke": [
+        "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&h=300&fit=crop",
+    ],
+    "pea": [
+        "https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+    ],
+    "bean": [
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=400&h=300&fit=crop",
+    ],
+    "corn": [
+        "https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400&h=300&fit=crop",
+    ],
+    "squash": [
+        "https://images.unsplash.com/photo-1506484381205-f7945b68db56?w=400&h=300&fit=crop",
+    ],
+    "parsnip": [
+        "https://images.unsplash.com/photo-1594057687713-5fd14eed1c15?w=400&h=300&fit=crop",
+    ],
+    "sweet potato": [
+        "https://images.unsplash.com/photo-1596097635121-14b63b7a0c17?w=400&h=300&fit=crop",
+    ],
+    "potato": [
+        "https://images.unsplash.com/photo-1518977676601-b53f82ber40?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1590868309235-ea34bed7bd7f?w=400&h=300&fit=crop",
+    ],
+    "mint": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1515586838455-8f8f940d6853?w=400&h=300&fit=crop",
+    ],
+    "basil": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1515586838455-8f8f940d6853?w=400&h=300&fit=crop",
+    ],
+    "parsley": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+    ],
+    "cilantro": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+    ],
+    "dill": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+    ],
+    "thyme": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+    ],
+    "rosemary": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+    ],
+    "oregano": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+    ],
+    "sage": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+    ],
+    "lavender": [
+        "https://images.unsplash.com/photo-1468327768560-75b778cbb551?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1499002238440-d264edd596ec?w=400&h=300&fit=crop",
+    ],
+    "chamomile": [
+        "https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=400&h=300&fit=crop",
+    ],
+    "lemongrass": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+    ],
+    "cumin": [
+        "https://images.unsplash.com/photo-1596097635121-14b63b7a0c17?w=400&h=300&fit=crop",
+    ],
+    "coriander": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+    ],
+    "fenugreek": [
+        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+    ],
+    "anise": [
+        "https://images.unsplash.com/photo-1596097635121-14b63b7a0c17?w=400&h=300&fit=crop",
+    ],
+    "saffron": [
+        "https://images.unsplash.com/photo-1596097635121-14b63b7a0c17?w=400&h=300&fit=crop",
+    ],
+    "cardamom": [
+        "https://images.unsplash.com/photo-1596097635121-14b63b7a0c17?w=400&h=300&fit=crop",
+    ],
+    "turmeric": [
+        "https://images.unsplash.com/photo-1596097635121-14b63b7a0c17?w=400&h=300&fit=crop",
+    ],
+    "ginger": [
+        "https://images.unsplash.com/photo-1596097635121-14b63b7a0c17?w=400&h=300&fit=crop",
+    ],
+    "rose": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=400&h=300&fit=crop",
+    ],
+    "jasmine": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "sunflower": [
+        "https://images.unsplash.com/photo-1597848212624-a19eb35e2651?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1551754655-cd27e38d2076?w=400&h=300&fit=crop",
+    ],
+    "marigold": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "poppy": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "zinnia": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "dahlia": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "tulip": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "iris": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "lily": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "carnation": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "peony": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "chrysanthemum": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "cosmos": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "amaranth": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "hollyhock": [
+        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    ],
+    "wheat": [
+        "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1530507629858-e4977d30e9e0?w=400&h=300&fit=crop",
+    ],
+    "barley": [
+        "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop",
+    ],
+    "oats": [
+        "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop",
+    ],
+    "rice": [
+        "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+    ],
+    "millet": [
+        "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop",
+    ],
+    "sorghum": [
+        "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop",
+    ],
+    "rye": [
+        "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop",
+    ],
+    "quinoa": [
+        "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+    ],
+    "buckwheat": [
+        "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=300&fit=crop",
+    ],
+    "lentil": [
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+    ],
+    "chickpea": [
+        "https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=400&h=300&fit=crop",
+    ],
+    "fava bean": [
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+    ],
+    "black bean": [
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+    ],
+    "kidney bean": [
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+    ],
+    "mung bean": [
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+    ],
+    "peanut": [
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+    ],
+    "soybean": [
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+    ],
+    "green bean": [
+        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+    ],
+    "olive": [
+        "https://images.unsplash.com/photo-1528821128474-27f963b062bf?w=400&h=300&fit=crop",
+        "https://images.unsplash.com/photo-1563281746-48b9dba2c6d2?w=400&h=300&fit=crop",
+    ],
+    "date palm": [
+        "https://images.unsplash.com/photo-1563281746-48b9dba2c6d2?w=400&h=300&fit=crop",
+    ],
+    "fig": [
+        "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
+    ],
+    "pomegranate": [
+        "https://images.unsplash.com/photo-1541344999736-13b5c7f63d10?w=400&h=300&fit=crop",
+    ],
+    "orange": [
+        "https://images.unsplash.com/photo-1547514701-42782101795e?w=400&h=300&fit=crop",
+    ],
+    "lemon": [
+        "https://images.unsplash.com/photo-1590502593747-42a996133562?w=400&h=300&fit=crop",
+    ],
+    "mandarin": [
+        "https://images.unsplash.com/photo-1547514701-42782101795e?w=400&h=300&fit=crop",
+    ],
+    "apricot": [
+        "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
+    ],
+    "peach": [
+        "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
+    ],
+    "almond": [
+        "https://images.unsplash.com/photo-1508061253366-f7da158b6d44?w=400&h=300&fit=crop",
+    ],
+    "walnut": [
+        "https://images.unsplash.com/photo-1508061253366-f7da158b6d44?w=400&h=300&fit=crop",
+    ],
+    "pistachio": [
+        "https://images.unsplash.com/photo-1508061253366-f7da158b6d44?w=400&h=300&fit=crop",
+    ],
+    "carob": [
+        "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
+    ],
+    "prickly pear": [
+        "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
+    ],
+    "avocado": [
+        "https://images.unsplash.com/photo-1523049673857-eb18f1d7b578?w=400&h=300&fit=crop",
+    ],
+    "mango": [
+        "https://images.unsplash.com/photo-1553279768-865429fa0078?w=400&h=300&fit=crop",
+    ],
+    "guava": [
+        "https://images.unsplash.com/photo-1553279768-865429fa0078?w=400&h=300&fit=crop",
+    ],
+    "papaya": [
+        "https://images.unsplash.com/photo-1553279768-865429fa0078?w=400&h=300&fit=crop",
+    ],
+    "banana": [
+        "https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&h=300&fit=crop",
+    ],
+    "coconut": [
+        "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
+    ],
+    "mulberry": [
+        "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
+    ],
+    "jujube": [
+        "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
+    ],
+}
+
+# Default fallback photos by category
+DEFAULT_PHOTOS = {
+    "vegetables": "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&h=300&fit=crop",
+    "herbs": "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=300&fit=crop",
+    "flowers": "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400&h=300&fit=crop",
+    "cereals": "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400&h=300&fit=crop",
+    "legumes": "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400&h=300&fit=crop",
+    "fruitiers": "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
+}
+
 CATEGORIES = {
     "vegetables": {
         "en": ["Tomato", "Pepper", "Eggplant", "Zucchini", "Cucumber", "Pumpkin", "Melon",
@@ -102,45 +462,6 @@ SUFFIXES_EN = ["II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X",
 SUFFIXES_AR = ["الأول", "الثاني", "الثالث", "الرابع", "الخامس", "مميز", "بريميوم",
                "كلاسيكي", "تراثي", "محفوظ"]
 
-# Photo URLs by category (using placeholder services)
-PHOTO_URLS = {
-    "vegetables": [
-        "https://images.unsplash.com/photo-1546470427-0d4db154ceb8?w=400",
-        "https://images.unsplash.com/photo-1518977676601-b53f82ber40?w=400",
-        "https://images.unsplash.com/photo-1590868309235-ea34bed7bd7f?w=400",
-        "https://images.unsplash.com/photo-1574943320219-553eb213f72d?w=400",
-        "https://images.unsplash.com/photo-1566385101042-1a0aa4c1c50c?w=400",
-    ],
-    "herbs": [
-        "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400",
-        "https://images.unsplash.com/photo-1515586838455-8f8f940d6853?w=400",
-        "https://images.unsplash.com/photo-1471943311424-646960669fbc?w=400",
-        "https://images.unsplash.com/photo-1592921870789-04563d55041c?w=400",
-    ],
-    "flowers": [
-        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400",
-        "https://images.unsplash.com/photo-1455659817273-f96807779a8a?w=400",
-        "https://images.unsplash.com/photo-1490750967868-88aa4f44baee?w=400",
-        "https://images.unsplash.com/photo-1518882462567-65e2e52135ed?w=400",
-    ],
-    "cereals": [
-        "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=400",
-        "https://images.unsplash.com/photo-1530507629858-e4977d30e9e0?w=400",
-        "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400",
-    ],
-    "legumes": [
-        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400",
-        "https://images.unsplash.com/photo-1587735243615-c03f25aaff15?w=400",
-        "https://images.unsplash.com/photo-1563746098251-d35aef196e83?w=400",
-    ],
-    "fruitiers": [
-        "https://images.unsplash.com/photo-1528821128474-27f963b062bf?w=400",
-        "https://images.unsplash.com/photo-1563281746-48b9dba2c6d2?w=400",
-        "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400",
-        "https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400",
-    ],
-}
-
 DESCRIPTIONS_EN = [
     "A traditional variety passed down through generations, prized for its exceptional flavor and adaptability to local growing conditions.",
     "Well adapted to arid and semi-arid conditions, this drought-resistant variety thrives where others fail.",
@@ -170,7 +491,7 @@ DESCRIPTIONS_AR = [
     "متعدد الاستخدامات في المطبخ، ممتاز طازجً ومطبوخاً في أطباق مختلفة.",
     "غني بالعناصر الغذائية الأساسية والمغذيات الدقيقة، إضافة صحية لأي نظام غذائي.",
     "ينضج ببطء بطعم عميق ومعقد يتطور بالكامل في المناخات الدافئة.",
-    "نوع مبكر مثالي للمواسم القصيرة وال Harvestات السريعة.",
+    "نوع مبكر مثالي للمواسم القصيرة وال harvestات السريعة.",
     "يتحمل الحرارة ويحب الشمس، يزدهر في المناخات المتوسطية والصحرائية.",
     "مقاوم للأمراض مع إنتاج موثوق عاماً بعد عام.",
     "عادة نمو مدمجة، مثالية للحدائق الجامدة والمساحات الصغيرة.",
@@ -358,6 +679,23 @@ CONSERVATION_TIPS_AR = {
 }
 
 
+def get_seed_photo(seed_name, category):
+    """Get appropriate photo URL for a seed based on its name."""
+    name_lower = seed_name.lower()
+
+    # Try exact match first
+    if name_lower in SEED_PHOTOS:
+        return random.choice(SEED_PHOTOS[name_lower])
+
+    # Try partial match
+    for key in SEED_PHOTOS:
+        if key in name_lower or name_lower in key:
+            return random.choice(SEED_PHOTOS[key])
+
+    # Fallback to category default
+    return DEFAULT_PHOTOS.get(category, DEFAULT_PHOTOS["vegetables"])
+
+
 def generate_seed(index):
     category = random.choice(list(CATEGORIES.keys()))
     cat_data = CATEGORIES[category]
@@ -386,7 +724,7 @@ def generate_seed(index):
     conservation_fr = conservation_en
     conservation_ar = random.choice(CONSERVATION_TIPS_AR[category])
 
-    photo_url = random.choice(PHOTO_URLS[category])
+    photo_url = get_seed_photo(name_en_base, category)
 
     featured = random.random() > 0.92
 
@@ -424,9 +762,13 @@ def main():
 
     cats = {}
     countries = {}
+    photos_by_cat = {}
     for s in seeds:
         cats[s["category"]] = cats.get(s["category"], 0) + 1
         countries[s["country"]] = countries.get(s["country"], 0) + 1
+        if s["category"] not in photos_by_cat:
+            photos_by_cat[s["category"]] = set()
+        photos_by_cat[s["category"]].add(s["photo"])
 
     print("\nCategories:")
     for k, v in sorted(cats.items()):
@@ -435,6 +777,10 @@ def main():
     print("\nCountries:")
     for k, v in sorted(countries.items()):
         print(f"  {k}: {v}")
+
+    print("\nUnique photos per category:")
+    for k, v in sorted(photos_by_cat.items()):
+        print(f"  {k}: {len(v)} unique URLs")
 
     print(f"\nFields per seed: {list(seeds[0].keys())}")
 
