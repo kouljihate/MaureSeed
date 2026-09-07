@@ -2,7 +2,7 @@
 
 > Organic & Ancient Seeds from North Africa 🌱
 
-**Version:** 1.1.0
+**Version:** 1.2.0
 
 ## Overview
 
@@ -51,8 +51,9 @@ MaureSeed/
 │   ├── fonts/
 │   └── img/
 ├── data/                # Seed data & DB scripts
-│   ├── seed_data.json
-│   └── seed_db.py
+│   ├── seed_data.json       # 10,000 seeds catalog
+│   ├── seed_db.py           # MongoDB seeder
+│   └── generate_seeds.py    # Data generator
 └── log/                 # Application logs
 ```
 

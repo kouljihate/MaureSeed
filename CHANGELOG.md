@@ -2,6 +2,18 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.2.0] - 2026-09-07
+
+### Added
+- Seed data generator script (`data/generate_seeds.py`)
+- 10,000 seed entries across 6 categories: vegetables, herbs, flowers, cereals, legumes, fruitiers
+- 5 countries coverage: Morocco, Algeria, Tunisia, Mauritania, Mali
+- Bilingual names (EN/AR) with variety prefixes and suffixes
+- Trilingual descriptions (EN/FR/AR)
+
+### Changed
+- Arabic font VIP Rawy Thin applied to all RTL elements (buttons, inputs, labels, etc.)
+
 ## [1.1.0] - 2026-09-07
 
 ### Changed

@@ -33,7 +33,32 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html[dir="rtl"] body {
+html[dir="rtl"] body,
+html[dir="rtl"] button,
+html[dir="rtl"] input,
+html[dir="rtl"] select,
+html[dir="rtl"] textarea,
+html[dir="rtl"] label,
+html[dir="rtl"] a,
+html[dir="rtl"] h1,
+html[dir="rtl"] h2,
+html[dir="rtl"] h3,
+html[dir="rtl"] h4,
+html[dir="rtl"] h5,
+html[dir="rtl"] h6,
+html[dir="rtl"] p,
+html[dir="rtl"] span,
+html[dir="rtl"] div,
+html[dir="rtl"] nav,
+html[dir="rtl"] header,
+html[dir="rtl"] footer,
+html[dir="rtl"] .btn,
+html[dir="rtl"] .lang-btn,
+html[dir="rtl"] .nav-link,
+html[dir="rtl"] .feature-card,
+html[dir="rtl"] .seed-card,
+html[dir="rtl"] .seed-info,
+html[dir="rtl"] .footer-col {
     font-family: var(--font-ar);
 }
 
