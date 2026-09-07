@@ -34,7 +34,13 @@
             <div class="seeds-grid" id="seeds-grid">
                 {% for seed in seeds %}
                 <div class="seed-card" data-category="{{ seed.category }}">
-                    <div class="seed-img">🌱</div>
+                    <div class="seed-img">
+                        {% if seed.photo %}
+                        <img src="{{ seed.photo }}" alt="{{ seed['name_' + lang] if lang != 'ar' else seed.name_ar }}" loading="lazy">
+                        {% else %}
+                        <span class="seed-icon">🌱</span>
+                        {% endif %}
+                    </div>
                     <div class="seed-info">
                         <h3>{{ seed['name_' + lang] if lang != 'ar' else seed.name_ar }}</h3>
                         <span class="seed-country">{{ seed.country }}</span>

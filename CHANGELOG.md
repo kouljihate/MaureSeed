@@ -2,6 +2,13 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.6.0] - 2026-09-07
+
+### Fixed
+- Seed card photos now display actual images from Unsplash URLs
+- Added `object-fit: cover` for proper image scaling
+- Photos shown on both catalogue and homepage featured seeds
+
 ## [1.5.0] - 2026-09-07
 
 ### Added
