@@ -82,18 +82,29 @@ body {
 
 .nav-link:hover { color: var(--green-mid); }
 
-.lang-switcher { display: flex; gap: 6px; }
+.lang-group {
+    display: inline-flex;
+    border: 1px solid var(--earth-light);
+    border-radius: 20px;
+    overflow: hidden;
+}
 
 .lang-btn {
-    padding: 4px 10px;
-    border-radius: var(--radius-sm);
+    padding: 6px 14px;
     text-decoration: none;
     font-size: 0.85rem;
     font-weight: 600;
     color: var(--text-mid);
-    background: var(--sand);
+    background: var(--white);
+    border: none;
+    border-right: 1px solid var(--earth-light);
     transition: all 0.2s;
 }
+
+.lang-btn:last-child { border-right: none; }
+
+.lang-first { border-radius: 20px 0 0 20px; }
+.lang-last { border-radius: 0 20px 20px 0; }
 
 .lang-btn.active, .lang-btn:hover {
     background: var(--green-mid);

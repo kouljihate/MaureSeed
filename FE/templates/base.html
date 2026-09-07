@@ -26,10 +26,10 @@
                 <a href="/about?lang={{ lang }}" class="nav-link">{{ t.nav_about }}</a>
                 <a href="/contact?lang={{ lang }}" class="nav-link">{{ t.nav_contact }}</a>
             </nav>
-            <div class="lang-switcher">
-                <a href="?lang=fr" class="lang-btn {{ 'active' if lang == 'fr' }}">FR</a>
+            <div class="lang-group">
+                <a href="?lang=fr" class="lang-btn lang-first {{ 'active' if lang == 'fr' }}">FR</a>
                 <a href="?lang=en" class="lang-btn {{ 'active' if lang == 'en' }}">EN</a>
-                <a href="?lang=ar" class="lang-btn {{ 'active' if lang == 'ar' }}">عربي</a>
+                <a href="?lang=ar" class="lang-btn lang-last {{ 'active' if lang == 'ar' }}">عربي</a>
             </div>
         </div>
     </header>
