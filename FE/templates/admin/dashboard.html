@@ -1,0 +1,29 @@
+{% extends "admin/base_admin.html" %}
+{% block admin_title %}Dashboard{% endblock %}
+{% block admin_content %}
+
+<div class="stats-grid">
+    <div class="stat-card">
+        <h3>{{ total_seeds }}</h3>
+        <p>Total Seeds</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ total_featured }}</h3>
+        <p>Featured</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ categories|length }}</h3>
+        <p>Categories</p>
+    </div>
+</div>
+
+<div class="admin-section">
+    <h2>Quick Actions</h2>
+    <div class="action-buttons">
+        <a href="/admin/seeds/add" class="btn btn-primary">Add New Seed</a>
+        <a href="/admin/seeds" class="btn btn-secondary">Manage Seeds</a>
+        <a href="/admin/customers" class="btn btn-secondary">Manage Customers</a>
+    </div>
+</div>
+
+{% endblock %}

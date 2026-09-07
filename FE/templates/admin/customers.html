@@ -1,0 +1,43 @@
+{% extends "admin/base_admin.html" %}
+{% block admin_title %}Customers Management{% endblock %}
+{% block admin_content %}
+
+<div class="admin-toolbar">
+    <h2>Customers ({{ customers|length }})</h2>
+</div>
+
+<div class="admin-table-wrapper">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ customer.id }}</td>
+                <td>{{ customer.name }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.role }}</td>
+                <td>{{ customer.status }}</td>
+                <td class="actions">
+                    <button class="btn-small btn-edit">Edit</button>
+                </td>
+            </tr>
+            {% endfor %}
+            {% if not customers %}
+            <tr>
+                <td colspan="6" class="text-center">No customers yet</td>
+            </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}

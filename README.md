@@ -2,7 +2,7 @@
 
 > Organic & Ancient Seeds from North Africa 🌱
 
-**Version:** 1.11.0
+**Version:** 1.12.0
 
 ## Overview
 
@@ -87,6 +87,18 @@ python main.py
 ```
 
 The app will be available at `http://localhost:5000`
+
+## Admin Access
+
+- **URL:** `/admin/login`
+- **Username:** `admin`
+- **Password:** `admin123`
+
+### Admin Capabilities
+- Manage seeds (Add/Edit/Delete)
+- Manage customers
+- View dashboard stats
+- Manage payments (future)
 
 ## API Endpoints
 

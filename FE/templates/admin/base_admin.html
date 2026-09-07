@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="{{ lang }}" dir="{{ 'rtl' if lang == 'ar' else 'ltr' }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - {{ t.app_name }}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+</head>
+<body class="admin-body">
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="admin-logo">
+                <span>🌱</span> Admin
+            </div>
+            <nav class="admin-nav">
+                <a href="/admin/dashboard" class="admin-nav-link {{ 'active' if request.path == '/admin/dashboard' }}">Dashboard</a>
+                <a href="/admin/seeds" class="admin-nav-link {{ 'active' if '/seeds' in request.path }}">Seeds</a>
+                <a href="/admin/customers" class="admin-nav-link {{ 'active' if '/customers' in request.path }}">Customers</a>
+            </nav>
+            <div class="admin-footer">
+                <a href="/admin/logout" class="admin-nav-link">Logout</a>
+                <a href="/?lang={{ lang }}" class="admin-nav-link">Back to Site</a>
+            </div>
+        </aside>
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1>{% block admin_title %}Dashboard{% endblock %}</h1>
+            </header>
+            <div class="admin-content">
+                {% block admin_content %}{% endblock %}
+            </div>
+        </main>
+    </div>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

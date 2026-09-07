@@ -1,0 +1,58 @@
+{% extends "admin/base_admin.html" %}
+{% block admin_title %}Seeds Management{% endblock %}
+{% block admin_content %}
+
+<div class="admin-toolbar">
+    <h2>Seeds ({{ total }})</h2>
+    <a href="/admin/seeds/add" class="btn btn-primary">+ Add Seed</a>
+</div>
+
+<div class="admin-table-wrapper">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name (EN)</th>
+                <th>Category</th>
+                <th>Country</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Featured</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for seed in seeds %}
+            <tr>
+                <td>{{ seed.id }}</td>
+                <td>{{ seed.name_en }}</td>
+                <td>{{ seed.category }}</td>
+                <td>{{ seed.country }}</td>
+                <td>{{ "%.2f"|format(seed.price) }} MAD</td>
+                <td>{{ seed.stock }}</td>
+                <td>{{ "✓" if seed.featured else "—" }}</td>
+                <td class="actions">
+                    <a href="/admin/seeds/edit/{{ seed.id }}" class="btn-small btn-edit">Edit</a>
+                    <form method="POST" action="/admin/seeds/delete/{{ seed.id }}" class="inline-form" onsubmit="return confirm('Delete this seed?')">
+                        <button type="submit" class="btn-small btn-delete">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% if total_pages > 1 %}
+<div class="pagination">
+    {% if page > 1 %}
+    <a href="?page={{ page - 1 }}" class="page-btn">&laquo; Prev</a>
+    {% endif %}
+    <span class="page-info">Page {{ page }} of {{ total_pages }}</span>
+    {% if page < total_pages %}
+    <a href="?page={{ page + 1 }}" class="page-btn">Next &raquo;</a>
+    {% endif %}
+</div>
+{% endif %}
+
+{% endblock %}

@@ -2,6 +2,21 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.12.0] - 2026-09-07
+
+### Added
+- Admin authentication (username: admin, password: admin123)
+- Admin panel with sidebar navigation
+- Seed CRUD management (Add/Edit/Delete)
+- Customer management page
+- Dashboard with stats
+- Admin-specific CSS
+- Role permissions system
+
+### Changed
+- Login now supports admin authentication
+- Admin panel at /admin/* routes
+
 ## [1.11.0] - 2026-09-07
 
 ### Added

@@ -1,0 +1,95 @@
+{% extends "admin/base_admin.html" %}
+{% block admin_title %}{{ 'Edit Seed' if action == 'edit' else 'Add Seed' }}{% endblock %}
+{% block admin_content %}
+
+<div class="admin-form-wrapper">
+    <form method="POST" class="admin-form">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Name (EN)</label>
+                <input type="text" name="name_en" value="{{ seed.name_en if seed else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label>Name (FR)</label>
+                <input type="text" name="name_fr" value="{{ seed.name_fr if seed else '' }}" required>
+            </div>
+            <div class="form-group">
+                <label>Name (AR)</label>
+                <input type="text" name="name_ar" value="{{ seed.name_ar if seed else '' }}" required dir="rtl">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Category</label>
+                <select name="category">
+                    <option value="vegetables" {{ 'selected' if seed and seed.category == 'vegetables' }}>Vegetables</option>
+                    <option value="herbs" {{ 'selected' if seed and seed.category == 'herbs' }}>Herbs</option>
+                    <option value="flowers" {{ 'selected' if seed and seed.category == 'flowers' }}>Flowers</option>
+                    <option value="cereals" {{ 'selected' if seed and seed.category == 'cereals' }}>Cereals</option>
+                    <option value="legumes" {{ 'selected' if seed and seed.category == 'legumes' }}>Legumes</option>
+                    <option value="fruitiers" {{ 'selected' if seed and seed.category == 'fruitiers' }}>Fruit Trees</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Country</label>
+                <select name="country">
+                    <option value="morocco" {{ 'selected' if seed and seed.country == 'morocco' }}>Morocco</option>
+                    <option value="algeria" {{ 'selected' if seed and seed.country == 'algeria' }}>Algeria</option>
+                    <option value="tunisia" {{ 'selected' if seed and seed.country == 'tunisia' }}>Tunisia</option>
+                    <option value="mauritania" {{ 'selected' if seed and seed.country == 'mauritania' }}>Mauritania</option>
+                    <option value="mali" {{ 'selected' if seed and seed.country == 'mali' }}>Mali</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Photo URL</label>
+                <input type="url" name="photo" value="{{ seed.photo if seed else '' }}">
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group">
+                <label>Price (MAD)</label>
+                <input type="number" name="price" step="0.01" value="{{ seed.price if seed else '0' }}" required>
+            </div>
+            <div class="form-group">
+                <label>Stock</label>
+                <input type="number" name="stock" value="{{ seed.stock if seed else '0' }}" required>
+            </div>
+            <div class="form-group checkbox-group">
+                <label>
+                    <input type="checkbox" name="featured" {{ 'checked' if seed and seed.featured }}>
+                    Featured
+                </label>
+            </div>
+        </div>
+
+        <h3>Description</h3>
+        <div class="form-row">
+            <div class="form-group"><label>EN</label><textarea name="description_en" rows="3">{{ seed.description_en if seed else '' }}</textarea></div>
+            <div class="form-group"><label>FR</label><textarea name="description_fr" rows="3">{{ seed.description_fr if seed else '' }}</textarea></div>
+            <div class="form-group"><label>AR</label><textarea name="description_ar" rows="3" dir="rtl">{{ seed.description_ar if seed else '' }}</textarea></div>
+        </div>
+
+        <h3>Usage</h3>
+        <div class="form-row">
+            <div class="form-group"><label>EN</label><textarea name="usage_en" rows="3">{{ seed.usage_en if seed else '' }}</textarea></div>
+            <div class="form-group"><label>FR</label><textarea name="usage_fr" rows="3">{{ seed.usage_fr if seed else '' }}</textarea></div>
+            <div class="form-group"><label>AR</label><textarea name="usage_ar" rows="3" dir="rtl">{{ seed.usage_ar if seed else '' }}</textarea></div>
+        </div>
+
+        <h3>Conservation</h3>
+        <div class="form-row">
+            <div class="form-group"><label>EN</label><textarea name="conservation_en" rows="3">{{ seed.conservation_en if seed else '' }}</textarea></div>
+            <div class="form-group"><label>FR</label><textarea name="conservation_fr" rows="3">{{ seed.conservation_fr if seed else '' }}</textarea></div>
+            <div class="form-group"><label>AR</label><textarea name="conservation_ar" rows="3" dir="rtl">{{ seed.conservation_ar if seed else '' }}</textarea></div>
+        </div>
+
+        <div class="form-actions">
+            <a href="/admin/seeds" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">{{ 'Update' if action == 'edit' else 'Create' }}</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

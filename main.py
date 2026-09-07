@@ -11,6 +11,7 @@ from shared.logger import app_logger
 from shared.roles import get_current_user, get_role_name
 from BE.routes import bp as api_bp
 from FE.routes import bp as fe_bp
+from BE.admin_routes import bp as admin_bp
 
 
 def create_app():
@@ -26,6 +27,7 @@ def create_app():
 
         app.register_blueprint(api_bp, url_prefix="/api")
         app.register_blueprint(fe_bp)
+        app.register_blueprint(admin_bp)
 
         @app.context_processor
         def inject_globals():
