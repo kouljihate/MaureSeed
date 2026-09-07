@@ -22,10 +22,13 @@
                 <a href="/about?lang={{ lang }}" class="nav-link">{{ t.nav_about }}</a>
                 <a href="/contact?lang={{ lang }}" class="nav-link">{{ t.nav_contact }}</a>
             </nav>
-            <div class="lang-group">
-                <a href="?lang=fr" class="lang-btn lang-first {{ 'active' if lang == 'fr' }}">FR</a>
-                <a href="?lang=en" class="lang-btn {{ 'active' if lang == 'en' }}">EN</a>
-                <a href="?lang=ar" class="lang-btn lang-last {{ 'active' if lang == 'ar' }}">عربي</a>
+            <div class="header-actions">
+                <a href="/login?lang={{ lang }}" class="login-icon" title="{{ t.login if t.login is defined else 'Login' }}">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                </a>
             </div>
         </div>
     </header>
@@ -40,7 +43,14 @@
                 <h3>🌱 {{ t.app_name }}</h3>
                 <p>{{ t.footer_about }}</p>
             </div>
-            <div class="footer-col"></div>
+            <div class="footer-col footer-center">
+                <h3>{{ t.language if t.language is defined else 'Language' }}</h3>
+                <div class="lang-group-footer">
+                    <a href="?lang=fr" class="lang-btn-footer {{ 'active' if lang == 'fr' }}">FR</a>
+                    <a href="?lang=en" class="lang-btn-footer {{ 'active' if lang == 'en' }}">EN</a>
+                    <a href="?lang=ar" class="lang-btn-footer {{ 'active' if lang == 'ar' }}">عربي</a>
+                </div>
+            </div>
             <div class="footer-col footer-right">
                 <h3>{{ t.footer_links }}</h3>
                 <a href="/about?lang={{ lang }}">{{ t.nav_about }}</a>

@@ -114,6 +114,33 @@ body {
 
 .nav-link:hover { color: var(--green-mid); }
 
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.login-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: var(--text-mid);
+    transition: all 0.2s;
+}
+
+.login-icon:hover {
+    background: var(--green-pale);
+    color: var(--green-dark);
+}
+
+.login-icon svg {
+    width: 22px;
+    height: 22px;
+}
+
 .lang-group {
     display: inline-flex;
     border: 1px solid var(--earth-light);
@@ -688,7 +715,37 @@ body {
 }
 .footer-col a:hover { opacity: 1; }
 .footer-left { text-align: left; }
+.footer-center { text-align: center; }
 .footer-right { text-align: right; }
+
+.lang-group-footer {
+    display: inline-flex;
+    border: 1px solid rgba(255,255,255,0.3);
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.lang-btn-footer {
+    padding: 6px 14px;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--white);
+    opacity: 0.7;
+    border-right: 1px solid rgba(255,255,255,0.3);
+    transition: all 0.2s;
+}
+
+.lang-btn-footer:last-child { border-right: none; }
+
+.lang-btn-footer:hover, .lang-btn-footer.active {
+    background: rgba(255,255,255,0.2);
+    opacity: 1;
+}
+
+.lang-btn-footer.active {
+    background: rgba(255,255,255,0.25);
+}
 
 .footer-bottom {
     grid-column: 1 / -1;

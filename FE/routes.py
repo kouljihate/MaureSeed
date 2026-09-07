@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
 from shared.database import get_collection
 from shared.i18n import get_lang
 from shared.logger import app_logger
+from shared.roles import login_user, logout_user, get_current_user
 
 bp = Blueprint("fe", __name__)
 
@@ -79,3 +80,29 @@ def contact():
     except Exception as e:
         info = app_logger.log_error(e, "fe.contact")
         return render_template("contact.html")
+
+
+@bp.route("/login", methods=["GET", "POST"])
+def login():
+    try:
+        if request.method == "POST":
+            name = request.form.get("name", "Guest")
+            role = request.form.get("role", "guest")
+            login_user(role, name)
+            lang = get_lang()
+            return redirect(f"/?lang={lang}")
+        return render_template("login.html")
+    except Exception as e:
+        info = app_logger.log_error(e, "fe.login")
+        return render_template("login.html")
+
+
+@bp.route("/logout")
+def logout():
+    try:
+        logout_user()
+        lang = get_lang()
+        return redirect(f"/?lang={lang}")
+    except Exception as e:
+        info = app_logger.log_error(e, "fe.logout")
+        return redirect(f"/?lang={get_lang()}")

@@ -8,6 +8,7 @@ from config.config import Config
 from shared.database import get_db, close_db
 from shared.i18n import get_lang, get_translations
 from shared.logger import app_logger
+from shared.roles import get_current_user, get_role_name
 from BE.routes import bp as api_bp
 from FE.routes import bp as fe_bp
 
@@ -29,16 +30,20 @@ def create_app():
         @app.context_processor
         def inject_globals():
             try:
+                user = get_current_user()
+                lang = get_lang()
                 return {
-                    "lang": get_lang(),
+                    "lang": lang,
                     "t": get_translations(),
                     "version": Config.VERSION,
                     "app_name": Config.APP_NAME,
                     "app_name_ar": Config.APP_NAME_AR,
+                    "current_user": user,
+                    "current_role": get_role_name(user.get("role", "guest"), lang),
                 }
             except Exception as e:
                 app_logger.log_error(e, "inject_globals")
-                return {"lang": "fr", "t": {}, "version": "0.0.0", "app_name": "MaureSeed", "app_name_ar": "مورسيد"}
+                return {"lang": "fr", "t": {}, "version": "0.0.0", "app_name": "MaureSeed", "app_name_ar": "مورسيد", "current_user": {"role": "guest", "name": "Guest"}, "current_role": "Guest"}
 
         @app.teardown_appcontext
         def shutdown_db(exception=None):

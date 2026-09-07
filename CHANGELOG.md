@@ -2,6 +2,20 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.11.0] - 2026-09-07
+
+### Added
+- Login icon in header (user avatar SVG)
+- Language buttons moved to footer 2nd column
+- User roles system: Admin, Customer, Guest (default)
+- Login/Logout routes
+- Login page with name and role selection
+- shared/roles.py module for user management
+
+### Changed
+- Header now shows login icon instead of language buttons
+- Footer now has 3 columns: About | Language | Useful Links
+
 ## [1.10.0] - 2026-09-07
 
 ### Added

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="page-header">
+    <div class="container">
+        <h1>{{ t.login if t.login is defined else 'Login' }}</h1>
+    </div>
+</section>
+
+<section class="contact">
+    <div class="container">
+        <div class="contact-form">
+            <form method="POST" action="/login?lang={{ lang }}">
+                <div class="form-group">
+                    <label>{{ t.name if t.name is defined else 'Name' }}</label>
+                    <input type="text" name="name" required placeholder="{{ t.name if t.name is defined else 'Your name' }}">
+                </div>
+                <div class="form-group">
+                    <label>{{ t.role if t.role is defined else 'Role' }}</label>
+                    <select name="role" required>
+                        <option value="guest">{{ t.role_guest }}</option>
+                        <option value="customer">{{ t.role_customer }}</option>
+                        <option value="admin">{{ t.role_admin }}</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">{{ t.login if t.login is defined else 'Login' }}</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
