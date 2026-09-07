@@ -3,7 +3,7 @@
 {% block admin_content %}
 
 <div class="admin-toolbar">
-    <h2>Seeds ({{ total }})</h2>
+    <h2>Seeds ({{ total|format_number(lang) }})</h2>
     <a href="/admin/seeds/add" class="btn btn-primary">+ Add Seed</a>
 </div>
 
@@ -28,8 +28,8 @@
                 <td>{{ seed.name_en }}</td>
                 <td>{{ seed.category }}</td>
                 <td>{{ seed.country }}</td>
-                <td>{{ "%.2f"|format(seed.price) }} MAD</td>
-                <td>{{ seed.stock }}</td>
+                <td>{{ "%.2f"|format(seed.price)|format_number(lang) }} MAD</td>
+                <td>{{ seed.stock|format_number(lang) }}</td>
                 <td>{{ "✓" if seed.featured else "—" }}</td>
                 <td class="actions">
                     <a href="/admin/seeds/edit/{{ seed.id }}" class="btn-small btn-edit">Edit</a>
@@ -48,7 +48,7 @@
     {% if page > 1 %}
     <a href="?page={{ page - 1 }}" class="page-btn">&laquo; Prev</a>
     {% endif %}
-    <span class="page-info">Page {{ page }} of {{ total_pages }}</span>
+    <span class="page-info">Page {{ page|format_number(lang) }} of {{ total_pages|format_number(lang) }}</span>
     {% if page < total_pages %}
     <a href="?page={{ page + 1 }}" class="page-btn">Next &raquo;</a>
     {% endif %}

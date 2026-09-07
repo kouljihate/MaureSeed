@@ -2,6 +2,15 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.13.1] - 2026-09-07
+
+### Added
+- Arabic numeral formatting in brackets when using Arabic language
+- format_number filter for Jinja templates
+
+### Changed
+- Numbers displayed as `1000 (١٠٠٠)` in Arabic mode
+
 ## [1.13.0] - 2026-09-07
 
 ### Added

@@ -9,6 +9,7 @@ from shared.database import get_db, close_db
 from shared.i18n import get_lang, get_translations
 from shared.logger import app_logger
 from shared.roles import get_current_user, get_role_name
+from shared.format import format_number
 from BE.routes import bp as api_bp
 from FE.routes import bp as fe_bp
 from BE.admin_routes import bp as admin_bp
@@ -24,6 +25,8 @@ def create_app():
         )
         app.config.from_object(Config)
         app.secret_key = Config.SECRET_KEY
+
+        app.jinja_env.filters['format_number'] = format_number
 
         app.register_blueprint(api_bp, url_prefix="/api")
         app.register_blueprint(fe_bp)

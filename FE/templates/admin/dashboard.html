@@ -4,15 +4,15 @@
 
 <div class="stats-grid">
     <div class="stat-card">
-        <h3>{{ total_seeds }}</h3>
+        <h3>{{ total_seeds|format_number(lang) }}</h3>
         <p>Total Seeds</p>
     </div>
     <div class="stat-card">
-        <h3>{{ total_featured }}</h3>
+        <h3>{{ total_featured|format_number(lang) }}</h3>
         <p>Featured</p>
     </div>
     <div class="stat-card">
-        <h3>{{ categories|length }}</h3>
+        <h3>{{ categories|length|format_number(lang) }}</h3>
         <p>Categories</p>
     </div>
 </div>

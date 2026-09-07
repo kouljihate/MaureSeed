@@ -10,7 +10,7 @@
     <section class="page-header">
         <div class="container">
             <h1>{{ t.section_catalogue }}</h1>
-            <p>{{ total }} {{ t.seeds_found if t.seeds_found is defined else 'seeds found' }}</p>
+            <p>{{ total|format_number(lang) }} {{ t.seeds_found if t.seeds_found is defined else 'seeds found' }}</p>
         </div>
     </section>
 
@@ -45,7 +45,7 @@
                         <h3>{{ seed['name_' + lang] if lang != 'ar' else seed.name_ar }}</h3>
                         <span class="seed-country">{{ seed.country }}</span>
                         <span class="seed-category">{{ seed.category }}</span>
-                        <span class="seed-price-tag">{{ "%.2f"|format(seed.price) }} MAD</span>
+                        <span class="seed-price-tag">{{ "%.2f"|format(seed.price)|format_number(lang) }} MAD</span>
                         {% if seed.description %}
                         <p class="seed-desc">{{ seed['description_' + lang] if lang != 'ar' else seed.description_ar }}</p>
                         {% endif %}
@@ -62,9 +62,9 @@
 
                 {% for p in range(1, total_pages + 1) %}
                     {% if p == page %}
-                    <span class="page-btn active">{{ p }}</span>
+                    <span class="page-btn active">{{ p|format_number(lang) }}</span>
                     {% elif p <= 3 or p > total_pages - 3 or (p >= page - 1 and p <= page + 1) %}
-                    <a href="?page={{ p }}{% if category %}&category={{ category }}{% endif %}&lang={{ lang }}" class="page-btn">{{ p }}</a>
+                    <a href="?page={{ p }}{% if category %}&category={{ category }}{% endif %}&lang={{ lang }}" class="page-btn">{{ p|format_number(lang) }}</a>
                     {% elif p == 4 or p == total_pages - 3 %}
                     <span class="page-dots">...</span>
                     {% endif %}

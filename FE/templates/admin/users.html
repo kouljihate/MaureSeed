@@ -51,7 +51,7 @@
     {% if page > 1 %}
     <a href="?page={{ page - 1 }}&lang={{ lang }}" class="btn btn-outline">Previous</a>
     {% endif %}
-    <span class="page-info">Page {{ page }} of {{ (total / per_page)|round(0, 'ceil')|int }}</span>
+    <span class="page-info">Page {{ page|format_number(lang) }} of {{ (total / per_page)|round(0, 'ceil')|int|format_number(lang) }}</span>
     {% if page * per_page < total %}
     <a href="?page={{ page + 1 }}&lang={{ lang }}" class="btn btn-outline">Next</a>
     {% endif %}

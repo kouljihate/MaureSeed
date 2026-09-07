@@ -22,10 +22,10 @@
                 <td>{{ seed.name }}</td>
                 <td>{{ seed.category }}</td>
                 <td>{{ seed.country }}</td>
-                <td>{{ seed.price }} {{ seed.currency }}</td>
+                <td>{{ seed.price|format_number(lang) }} {{ seed.currency }}</td>
                 <td>
                     <span class="stock-badge {% if seed.stock < 5 %}stock-low{% elif seed.stock < 20 %}stock-mid{% else %}stock-high{% endif %}">
-                        {{ seed.stock }}
+                        {{ seed.stock|format_number(lang) }}
                     </span>
                 </td>
                 <td>
@@ -44,7 +44,7 @@
     {% if page > 1 %}
     <a href="?page={{ page - 1 }}&lang={{ lang }}" class="btn btn-outline">Previous</a>
     {% endif %}
-    <span class="page-info">Page {{ page }} of {{ (total / per_page)|round(0, 'ceil')|int }}</span>
+    <span class="page-info">Page {{ page|format_number(lang) }} of {{ (total / per_page)|round(0, 'ceil')|int|format_number(lang) }}</span>
     {% if page * per_page < total %}
     <a href="?page={{ page + 1 }}&lang={{ lang }}" class="btn btn-outline">Next</a>
     {% endif %}

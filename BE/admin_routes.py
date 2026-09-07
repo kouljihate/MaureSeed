@@ -59,7 +59,9 @@ def dashboard():
     try:
         seeds_col = get_collection("seeds")
         total_seeds = seeds_col.count_documents({})
+        total_featured = seeds_col.count_documents({"featured": True})
         low_stock = seeds_col.count_documents({"stock": {"$lt": 10}})
+        categories = seeds_col.distinct("category")
         
         customers_col = get_collection("customers")
         total_customers = customers_col.count_documents({})
@@ -68,6 +70,8 @@ def dashboard():
         
         return render_template("admin/dashboard.html",
             total_seeds=total_seeds,
+            total_featured=total_featured,
+            categories=categories,
             low_stock=low_stock,
             total_customers=total_customers,
             pending_payments=pending_payments
