@@ -38,20 +38,6 @@
     </div>
 </section>
 
-<section class="countries-section">
-    <div class="container">
-        <h2 class="section-title">{{ t.section_countries }}</h2>
-        <div class="countries-grid">
-            {% for c in countries %}
-            <a href="/catalogue?country={{ c.id }}&lang={{ lang }}" class="country-card">
-                <span class="country-flag">{{ c.flag }}</span>
-                <span class="country-name">{{ c['name_' + lang] if lang != 'ar' else c.name_ar }}</span>
-            </a>
-            {% endfor %}
-        </div>
-    </div>
-</section>
-
 <section class="catalogue-preview">
     <div class="container">
         <h2 class="section-title">{{ t.section_catalogue }}</h2>

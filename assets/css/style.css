@@ -207,41 +207,6 @@ body {
     font-size: 0.9rem;
 }
 
-/* COUNTRIES */
-.countries-section {
-    padding: 60px 20px;
-}
-
-.countries-grid {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.country-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-    padding: 24px 32px;
-    background: var(--white);
-    border-radius: var(--radius);
-    text-decoration: none;
-    color: var(--text-dark);
-    box-shadow: var(--shadow);
-    transition: all 0.2s;
-    min-width: 140px;
-}
-
-.country-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-hover);
-}
-
-.country-flag { font-size: 2.5rem; }
-.country-name { font-weight: 600; }
-
 /* SEEDS GRID */
 .seeds-grid {
     display: grid;

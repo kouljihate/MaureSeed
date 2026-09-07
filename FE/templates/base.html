@@ -50,12 +50,7 @@
                 <a href="/catalogue?lang={{ lang }}">{{ t.nav_catalogue }}</a>
                 <a href="/contact?lang={{ lang }}">{{ t.footer_contact }}</a>
             </div>
-            <div class="footer-col">
-                <h3>{{ t.nav_countries }}</h3>
-                {% for c in countries %}
-                <a href="/catalogue?country={{ c.id }}&lang={{ lang }}">{{ c.flag }} {{ c['name_' + lang] if lang != 'ar' else c.name_ar }}</a>
-                {% endfor %}
-            </div>
+
             <div class="footer-bottom">
                 <p>&copy; 2026 {{ t.app_name }} v{{ version }} - {{ t.footer_rights }}</p>
             </div>

@@ -12,11 +12,10 @@ def index():
     try:
         col = get_collection("seeds")
         featured = list(col.find({"featured": True}, {"_id": 0}).limit(8))
-        countries = seed_countries()
-        return render_template("index.html", featured=featured, countries=countries)
+        return render_template("index.html", featured=featured)
     except Exception as e:
         info = app_logger.log_error(e, "fe.index")
-        return render_template("index.html", featured=[], countries=[])
+        return render_template("index.html", featured=[])
 
 
 @bp.route("/catalogue")
