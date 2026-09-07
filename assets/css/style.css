@@ -515,6 +515,56 @@ body {
     min-width: 160px;
 }
 
+/* PAGINATION */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+}
+
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--text-mid);
+    background: var(--white);
+    border: 1px solid var(--earth-light);
+    transition: all 0.2s;
+}
+
+.page-btn:hover {
+    background: var(--green-pale);
+    border-color: var(--green-mid);
+    color: var(--green-dark);
+}
+
+.page-btn.active {
+    background: var(--green-mid);
+    border-color: var(--green-mid);
+    color: var(--white);
+    cursor: default;
+}
+
+.page-dots {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    height: 40px;
+    color: var(--text-light);
+    font-weight: 600;
+}
+
 /* PAGE HEADER */
 .page-header {
     background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-mid) 100%);

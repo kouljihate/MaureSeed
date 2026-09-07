@@ -2,6 +2,15 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.10.0] - 2026-09-07
+
+### Added
+- Pagination to catalogue page (24 seeds per page)
+- Smart page number display with ellipsis
+- Category filter now works with pagination
+- Prev/Next navigation buttons
+- Seed count display
+
 ## [1.9.0] - 2026-09-07
 
 ### Added

@@ -5,6 +5,8 @@ from shared.logger import app_logger
 
 bp = Blueprint("fe", __name__)
 
+PER_PAGE = 24
+
 
 @bp.route("/")
 def index():
@@ -21,15 +23,31 @@ def index():
 def catalogue():
     try:
         col = get_collection("seeds")
+        page = request.args.get("page", 1, type=int)
+        category = request.args.get("category", "")
+
         query = {}
-        category = request.args.get("category")
         if category:
             query["category"] = category
-        seeds = list(col.find(query, {"_id": 0}))
-        return render_template("catalogue.html", seeds=seeds)
+
+        total = col.count_documents(query)
+        total_pages = max(1, (total + PER_PAGE - 1) // PER_PAGE)
+        page = max(1, min(page, total_pages))
+        skip = (page - 1) * PER_PAGE
+
+        seeds = list(col.find(query, {"_id": 0}).skip(skip).limit(PER_PAGE))
+
+        return render_template(
+            "catalogue.html",
+            seeds=seeds,
+            page=page,
+            total_pages=total_pages,
+            total=total,
+            category=category,
+        )
     except Exception as e:
         info = app_logger.log_error(e, "fe.catalogue")
-        return render_template("catalogue.html", seeds=[])
+        return render_template("catalogue.html", seeds=[], page=1, total_pages=1, total=0, category="")
 
 
 @bp.route("/seed/<seed_id>")

@@ -10,7 +10,7 @@
     <section class="page-header">
         <div class="container">
             <h1>{{ t.section_catalogue }}</h1>
-            <p>{{ t.section_catalogue_desc }}</p>
+            <p>{{ total }} {{ t.seeds_found if t.seeds_found is defined else 'seeds found' }}</p>
         </div>
     </section>
 
@@ -19,14 +19,14 @@
             <div class="catalogue-filters">
                 <div class="filter-group">
                     <label>{{ t.categories }}</label>
-                    <select id="filter-category" onchange="filterSeeds()">
-                        <option value="">{{ t.view_all }}</option>
-                        <option value="vegetables">{{ t.cat_vegetables }}</option>
-                        <option value="herbs">{{ t.cat_herbs }}</option>
-                        <option value="flowers">{{ t.cat_fleurs }}</option>
-                        <option value="cereals">{{ t.cat_cereales }}</option>
-                        <option value="legumes">{{ t.cat_legumes }}</option>
-                        <option value="fruitiers">{{ t.cat_fruitiers }}</option>
+                    <select id="filter-category" onchange="applyFilter()">
+                        <option value="" {{ 'selected' if not category }}>{{ t.view_all }}</option>
+                        <option value="vegetables" {{ 'selected' if category == 'vegetables' }}>{{ t.cat_vegetables }}</option>
+                        <option value="herbs" {{ 'selected' if category == 'herbs' }}>{{ t.cat_herbs }}</option>
+                        <option value="flowers" {{ 'selected' if category == 'flowers' }}>{{ t.cat_fleurs }}</option>
+                        <option value="cereals" {{ 'selected' if category == 'cereals' }}>{{ t.cat_cereales }}</option>
+                        <option value="legumes" {{ 'selected' if category == 'legumes' }}>{{ t.cat_legumes }}</option>
+                        <option value="fruitiers" {{ 'selected' if category == 'fruitiers' }}>{{ t.cat_fruitiers }}</option>
                     </select>
                 </div>
             </div>
@@ -53,6 +53,28 @@
                 </a>
                 {% endfor %}
             </div>
+
+            {% if total_pages > 1 %}
+            <div class="pagination">
+                {% if page > 1 %}
+                <a href="?page={{ page - 1 }}{% if category %}&category={{ category }}{% endif %}&lang={{ lang }}" class="page-btn">&laquo; {{ t.prev if t.prev is defined else 'Prev' }}</a>
+                {% endif %}
+
+                {% for p in range(1, total_pages + 1) %}
+                    {% if p == page %}
+                    <span class="page-btn active">{{ p }}</span>
+                    {% elif p <= 3 or p > total_pages - 3 or (p >= page - 1 and p <= page + 1) %}
+                    <a href="?page={{ p }}{% if category %}&category={{ category }}{% endif %}&lang={{ lang }}" class="page-btn">{{ p }}</a>
+                    {% elif p == 4 or p == total_pages - 3 %}
+                    <span class="page-dots">...</span>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page < total_pages %}
+                <a href="?page={{ page + 1 }}{% if category %}&category={{ category }}{% endif %}&lang={{ lang }}" class="page-btn">{{ t.next if t.next is defined else 'Next' }} &raquo;</a>
+                {% endif %}
+            </div>
+            {% endif %}
         </div>
     </section>
 </div>
@@ -67,6 +89,18 @@
             }, 400);
         }, 800);
     });
+
+    function applyFilter() {
+        var category = document.getElementById('filter-category').value;
+        var url = new URL(window.location);
+        url.searchParams.delete('page');
+        if (category) {
+            url.searchParams.set('category', category);
+        } else {
+            url.searchParams.delete('category');
+        }
+        window.location.href = url.toString();
+    }
 </script>
 
 {% endblock %}

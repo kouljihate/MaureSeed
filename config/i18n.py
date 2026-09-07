@@ -42,6 +42,9 @@ TRANSLATIONS = {
         "stock": "en stock",
         "out_of_stock": "Épuisé",
         "not_found": "Page non trouvée",
+        "prev": "Préc",
+        "next": "Suiv",
+        "seeds_found": "semences trouvées",
     },
     "ar": {
         "app_name": "بذور  مورسي",
@@ -86,6 +89,9 @@ TRANSLATIONS = {
         "stock": "متوفر",
         "out_of_stock": "غير متوفر",
         "not_found": "الصفحة غير موجودة",
+        "prev": "السابق",
+        "next": "التالي",
+        "seeds_found": "بذور موجودة",
     },
     "en": {
         "app_name": "MaureSeed",
@@ -130,5 +136,8 @@ TRANSLATIONS = {
         "stock": "in stock",
         "out_of_stock": "Out of stock",
         "not_found": "Page not found",
+        "prev": "Prev",
+        "next": "Next",
+        "seeds_found": "seeds found",
     },
 }
