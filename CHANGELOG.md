@@ -2,6 +2,14 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.8.0] - 2026-09-07
+
+### Changed
+- Added comprehensive try/except to all functions across codebase
+- All errors now return: script name, function name, line number, code, description
+- Updated shared/i18n.py with proper error logging
+- Updated shared/utils.py with try/except in seed_countries()
+
 ## [1.7.0] - 2026-09-07
 
 ### Changed
