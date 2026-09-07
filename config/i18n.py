@@ -43,7 +43,7 @@ TRANSLATIONS = {
         "hero_title": "تراث  البذور من شمال أفريقيا",
         "hero_subtitle": "الحفاظ على البذور العضوية والقديمة والشعبية من المغرب والجزائر وتونس وموريتانيا ومالي",
         "nav_home": "الرئيسية",
-        "nav_catalogue": "الكتالوج",
+        "nav_catalogue": "القائمة",
         "nav_about": "حول",
         "nav_contact": "اتصل بنا",
 
@@ -58,7 +58,7 @@ TRANSLATIONS = {
         "feature_local": "مُ thíchقة للمناخ المحلي",
         "feature_local_desc": "مختارة لظروف المناخ شمال أفريقيا",
 
-        "section_catalogue": "كتالوج البذور",
+        "section_catalogue": " قائمة البذور",
         "section_catalogue_desc": "اكتشف مجموعتنا من البذور العضوية والقديمة",
         "footer_about": "مورسيد تحافظ وتروج للتراث البحري من شمال أفريقيا والسهل.",
         "footer_links": "روابط مفيدة",
