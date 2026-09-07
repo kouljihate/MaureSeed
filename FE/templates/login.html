@@ -9,24 +9,142 @@
 
 <section class="contact">
     <div class="container">
+        <div class="login-tabs">
+            <button class="login-tab active" onclick="showLoginType('guest')">{{ t.role_guest }}</button>
+            <button class="login-tab" onclick="showLoginType('customer')">{{ t.role_customer }}</button>
+        </div>
+
+        {% if error %}
+        <div class="login-error">{{ error }}</div>
+        {% endif %}
+
         <div class="contact-form">
-            <form method="POST" action="/login?lang={{ lang }}">
-                <div class="form-group">
-                    <label>{{ t.name if t.name is defined else 'Name' }}</label>
-                    <input type="text" name="name" required placeholder="{{ t.name if t.name is defined else 'Your name' }}">
+            <div id="guest-form" class="login-form active">
+                <form method="POST" action="/login?lang={{ lang }}">
+                    <input type="hidden" name="login_type" value="guest">
+                    <div class="form-group">
+                        <label>{{ t.name if t.name is defined else 'Name' }}</label>
+                        <input type="text" name="name" required placeholder="{{ t.enter_name if t.enter_name is defined else 'Enter your name' }}">
+                    </div>
+                    <button type="submit" class="btn btn-primary">{{ t.continue if t.continue is defined else 'Continue' }}</button>
+                </form>
+            </div>
+
+            <div id="customer-form" class="login-form">
+                <div class="login-subtabs">
+                    <button class="login-subtab active" onclick="showCustomerAction('login')">{{ t.login }}</button>
+                    <button class="login-subtab" onclick="showCustomerAction('register')">{{ t.register if t.register is defined else 'Register' }}</button>
                 </div>
-                <div class="form-group">
-                    <label>{{ t.role if t.role is defined else 'Role' }}</label>
-                    <select name="role" required>
-                        <option value="guest">{{ t.role_guest }}</option>
-                        <option value="customer">{{ t.role_customer }}</option>
-                        <option value="admin">{{ t.role_admin }}</option>
-                    </select>
+
+                <div id="customer-login" class="login-subform active">
+                    <form method="POST" action="/login?lang={{ lang }}">
+                        <input type="hidden" name="login_type" value="customer">
+                        <div class="form-group">
+                            <label>{{ t.username if t.username is defined else 'Username' }}</label>
+                            <input type="text" name="username" required placeholder="{{ t.enter_username if t.enter_username is defined else 'Enter username' }}">
+                        </div>
+                        <div class="form-group">
+                            <label>{{ t.password if t.password is defined else 'Password' }}</label>
+                            <input type="password" name="password" required placeholder="{{ t.enter_password if t.enter_password is defined else 'Enter password' }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">{{ t.login }}</button>
+                    </form>
                 </div>
-                <button type="submit" class="btn btn-primary">{{ t.login if t.login is defined else 'Login' }}</button>
-            </form>
+
+                <div id="customer-register" class="login-subform">
+                    <form method="POST" action="/register?lang={{ lang }}">
+                        <div class="form-group">
+                            <label>{{ t.name if t.name is defined else 'Name' }}</label>
+                            <input type="text" name="name" required placeholder="{{ t.enter_name if t.enter_name is defined else 'Enter your name' }}">
+                        </div>
+                        <div class="form-group">
+                            <label>{{ t.username if t.username is defined else 'Username' }}</label>
+                            <input type="text" name="username" required placeholder="{{ t.choose_username if t.choose_username is defined else 'Choose username' }}">
+                        </div>
+                        <div class="form-group">
+                            <label>{{ t.email if t.email is defined else 'Email' }}</label>
+                            <input type="email" name="email" placeholder="{{ t.enter_email if t.enter_email is defined else 'Enter email' }}">
+                        </div>
+                        <div class="form-group">
+                            <label>{{ t.password if t.password is defined else 'Password' }}</label>
+                            <input type="password" name="password" required placeholder="{{ t.choose_password if t.choose_password is defined else 'Choose password' }}">
+                        </div>
+                        <button type="submit" class="btn btn-primary">{{ t.register if t.register is defined else 'Register' }}</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </section>
+
+<script>
+function showLoginType(type) {
+    document.querySelectorAll('.login-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.login-form').forEach(f => f.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById(type + '-form').classList.add('active');
+}
+
+function showCustomerAction(action) {
+    document.querySelectorAll('.login-subtab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.login-subform').forEach(f => f.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('customer-' + action).classList.add('active');
+}
+</script>
+
+<style>
+.login-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+.login-tab {
+    padding: 10px 24px;
+    border: 1px solid var(--earth-light);
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+.login-tab.active {
+    background: var(--green-mid);
+    color: var(--white);
+    border-color: var(--green-mid);
+}
+.login-form { display: none; }
+.login-form.active { display: block; }
+.login-subtabs {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+.login-subtab {
+    padding: 8px 20px;
+    border: none;
+    background: var(--sand);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+.login-subtab.active {
+    background: var(--green-dark);
+    color: var(--white);
+}
+.login-subform { display: none; }
+.login-subform.active { display: block; }
+.login-error {
+    text-align: center;
+    color: #c62828;
+    margin-bottom: 16px;
+    font-weight: 600;
+}
+</style>
 
 {% endblock %}

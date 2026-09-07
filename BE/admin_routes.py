@@ -1,20 +1,20 @@
-from flask import Blueprint, render_template, request, redirect, session, jsonify
+from flask import Blueprint, render_template, request, redirect, session, jsonify, url_for
 from shared.database import get_collection
 from shared.i18n import get_lang
 from shared.logger import app_logger
-from shared.roles import login_admin, logout_user, require_admin, is_admin
+from shared.roles import is_admin, login_admin, logout_user, hash_password
 
 bp = Blueprint("admin", __name__, url_prefix="/admin")
 
 
 @bp.before_request
-def check_admin():
+def before_request():
     try:
-        if request.endpoint != "admin.login" and not is_admin():
-            return redirect("/admin/login?lang=" + get_lang())
+        if request.endpoint not in ["admin.login", "admin.logout"] and not is_admin():
+            app_logger.info("Admin access denied - redirecting to login")
+            return redirect(f"/admin/login?lang={get_lang()}")
     except Exception as e:
-        app_logger.log_error(e, "admin.check_admin")
-        return redirect("/admin/login")
+        app_logger.log_error(e, "admin.before_request")
 
 
 @bp.route("/login", methods=["GET", "POST"])
@@ -24,147 +24,248 @@ def login():
             username = request.form.get("username", "")
             password = request.form.get("password", "")
             if login_admin(username, password):
-                return redirect("/admin/dashboard?lang=" + get_lang())
-            return render_template("admin/login.html", error="Invalid credentials")
+                app_logger.info(f"Admin login successful: {username}")
+                return redirect(f"/admin/dashboard?lang={get_lang()}")
+            else:
+                app_logger.warning(f"Admin login failed: {username}")
+                return render_template("admin/login.html", error="Invalid credentials")
         return render_template("admin/login.html")
     except Exception as e:
         info = app_logger.log_error(e, "admin.login")
-        return render_template("admin/login.html", error="Login error")
+        return render_template("admin/login.html")
 
 
 @bp.route("/logout")
 def logout():
     try:
         logout_user()
-        return redirect("/admin/login?lang=" + get_lang())
+        app_logger.info("Admin logged out")
+        return redirect(f"/admin/login?lang={get_lang()}")
     except Exception as e:
         info = app_logger.log_error(e, "admin.logout")
-        return redirect("/admin/login")
+        return redirect(f"/admin/login?lang={get_lang()}")
+
+
+@bp.route("/")
+def index():
+    try:
+        return redirect(f"/admin/dashboard?lang={get_lang()}")
+    except Exception as e:
+        info = app_logger.log_error(e, "admin.index")
 
 
 @bp.route("/dashboard")
 def dashboard():
     try:
-        col = get_collection("seeds")
-        total_seeds = col.count_documents({})
-        total_featured = col.count_documents({"featured": True})
-        categories = col.distinct("category")
+        seeds_col = get_collection("seeds")
+        total_seeds = seeds_col.count_documents({})
+        low_stock = seeds_col.count_documents({"stock": {"$lt": 10}})
+        
+        customers_col = get_collection("customers")
+        total_customers = customers_col.count_documents({})
+        
+        pending_payments = 0
+        
         return render_template("admin/dashboard.html",
-                               total_seeds=total_seeds,
-                               total_featured=total_featured,
-                               categories=categories)
+            total_seeds=total_seeds,
+            low_stock=low_stock,
+            total_customers=total_customers,
+            pending_payments=pending_payments
+        )
     except Exception as e:
         info = app_logger.log_error(e, "admin.dashboard")
-        return render_template("admin/dashboard.html", total_seeds=0, total_featured=0, categories=[])
 
 
 @bp.route("/seeds")
-def seeds_list():
+def seeds():
     try:
         col = get_collection("seeds")
-        page = request.args.get("page", 1, type=int)
+        page = int(request.args.get("page", 1))
         per_page = 20
         total = col.count_documents({})
-        total_pages = max(1, (total + per_page - 1) // per_page)
-        page = max(1, min(page, total_pages))
-        skip = (page - 1) * per_page
-        seeds = list(col.find({}, {"_id": 0}).skip(skip).limit(per_page))
-        return render_template("admin/seeds.html", seeds=seeds, page=page, total_pages=total_pages, total=total)
+        seeds_data = list(col.find().skip((page - 1) * per_page).limit(per_page))
+        
+        for seed in seeds_data:
+            seed["_id"] = str(seed["_id"])
+        
+        return render_template("admin/seeds.html",
+            seeds=seeds_data,
+            page=page,
+            total=total,
+            per_page=per_page
+        )
     except Exception as e:
-        info = app_logger.log_error(e, "admin.seeds_list")
-        return render_template("admin/seeds.html", seeds=[], page=1, total_pages=1, total=0)
+        info = app_logger.log_error(e, "admin.seeds")
 
 
-@bp.route("/seeds/add", methods=["GET", "POST"])
-def seed_add():
+@bp.route("/seeds/new", methods=["GET", "POST"])
+def seed_new():
     try:
         if request.method == "POST":
             col = get_collection("seeds")
             seed = {
-                "id": f"seed-{col.count_documents({}) + 1:05d}",
-                "name_en": request.form.get("name_en", ""),
+                "name": request.form.get("name", ""),
                 "name_fr": request.form.get("name_fr", ""),
                 "name_ar": request.form.get("name_ar", ""),
-                "country": request.form.get("country", "morocco"),
-                "category": request.form.get("category", "vegetables"),
-                "description_en": request.form.get("description_en", ""),
+                "name_en": request.form.get("name_en", ""),
+                "description": request.form.get("description", ""),
                 "description_fr": request.form.get("description_fr", ""),
                 "description_ar": request.form.get("description_ar", ""),
-                "usage_en": request.form.get("usage_en", ""),
-                "usage_fr": request.form.get("usage_fr", ""),
-                "usage_ar": request.form.get("usage_ar", ""),
-                "conservation_en": request.form.get("conservation_en", ""),
-                "conservation_fr": request.form.get("conservation_fr", ""),
-                "conservation_ar": request.form.get("conservation_ar", ""),
-                "photo": request.form.get("photo", ""),
+                "description_en": request.form.get("description_en", ""),
+                "category": request.form.get("category", ""),
+                "country": request.form.get("country", ""),
+                "region": request.form.get("region", ""),
                 "price": float(request.form.get("price", 0)),
+                "currency": "MAD",
                 "stock": int(request.form.get("stock", 0)),
+                "image": request.form.get("image", ""),
+                "organic": request.form.get("organic") == "on",
+                "ancient": request.form.get("ancient") == "on",
                 "featured": request.form.get("featured") == "on",
             }
             col.insert_one(seed)
-            app_logger.info(f"Seed added: {seed['id']}")
-            return redirect("/admin/seeds?lang=" + get_lang())
-        return render_template("admin/seed_form.html", seed=None, action="add")
+            app_logger.info(f"Seed created: {seed['name']}")
+            return redirect(f"/admin/seeds?lang={get_lang()}")
+        return render_template("admin/seed_form.html", seed=None)
     except Exception as e:
-        info = app_logger.log_error(e, "admin.seed_add")
-        return redirect("/admin/seeds?lang=" + get_lang())
+        info = app_logger.log_error(e, "admin.seed_new")
 
 
-@bp.route("/seeds/edit/<seed_id>", methods=["GET", "POST"])
+@bp.route("/seeds/<seed_id>/edit", methods=["GET", "POST"])
 def seed_edit(seed_id):
     try:
+        from bson import ObjectId
         col = get_collection("seeds")
         if request.method == "POST":
-            update = {
-                "name_en": request.form.get("name_en", ""),
+            seed = {
+                "name": request.form.get("name", ""),
                 "name_fr": request.form.get("name_fr", ""),
                 "name_ar": request.form.get("name_ar", ""),
-                "country": request.form.get("country", "morocco"),
-                "category": request.form.get("category", "vegetables"),
-                "description_en": request.form.get("description_en", ""),
+                "name_en": request.form.get("name_en", ""),
+                "description": request.form.get("description", ""),
                 "description_fr": request.form.get("description_fr", ""),
                 "description_ar": request.form.get("description_ar", ""),
-                "usage_en": request.form.get("usage_en", ""),
-                "usage_fr": request.form.get("usage_fr", ""),
-                "usage_ar": request.form.get("usage_ar", ""),
-                "conservation_en": request.form.get("conservation_en", ""),
-                "conservation_fr": request.form.get("conservation_fr", ""),
-                "conservation_ar": request.form.get("conservation_ar", ""),
-                "photo": request.form.get("photo", ""),
+                "description_en": request.form.get("description_en", ""),
+                "category": request.form.get("category", ""),
+                "country": request.form.get("country", ""),
+                "region": request.form.get("region", ""),
                 "price": float(request.form.get("price", 0)),
+                "currency": "MAD",
                 "stock": int(request.form.get("stock", 0)),
+                "image": request.form.get("image", ""),
+                "organic": request.form.get("organic") == "on",
+                "ancient": request.form.get("ancient") == "on",
                 "featured": request.form.get("featured") == "on",
             }
-            col.update_one({"id": seed_id}, {"$set": update})
+            col.update_one({"_id": ObjectId(seed_id)}, {"$set": seed})
             app_logger.info(f"Seed updated: {seed_id}")
-            return redirect("/admin/seeds?lang=" + get_lang())
-        seed = col.find_one({"id": seed_id}, {"_id": 0})
-        if not seed:
-            return redirect("/admin/seeds?lang=" + get_lang())
-        return render_template("admin/seed_form.html", seed=seed, action="edit")
+            return redirect(f"/admin/seeds?lang={get_lang()}")
+        seed = col.find_one({"_id": ObjectId(seed_id)})
+        seed["_id"] = str(seed["_id"])
+        return render_template("admin/seed_form.html", seed=seed)
     except Exception as e:
-        info = app_logger.log_error(e, f"admin.seed_edit({seed_id})")
-        return redirect("/admin/seeds?lang=" + get_lang())
+        info = app_logger.log_error(e, "admin.seed_edit")
 
 
-@bp.route("/seeds/delete/<seed_id>", methods=["POST"])
+@bp.route("/seeds/<seed_id>/delete", methods=["POST"])
 def seed_delete(seed_id):
     try:
+        from bson import ObjectId
         col = get_collection("seeds")
-        col.delete_one({"id": seed_id})
+        col.delete_one({"_id": ObjectId(seed_id)})
         app_logger.info(f"Seed deleted: {seed_id}")
-        return redirect("/admin/seeds?lang=" + get_lang())
+        return redirect(f"/admin/seeds?lang={get_lang()}")
     except Exception as e:
-        info = app_logger.log_error(e, f"admin.seed_delete({seed_id})")
-        return redirect("/admin/seeds?lang=" + get_lang())
+        info = app_logger.log_error(e, "admin.seed_delete")
 
 
 @bp.route("/customers")
-def customers_list():
+def customers():
     try:
         col = get_collection("customers")
-        customers = list(col.find({}, {"_id": 0}))
-        return render_template("admin/customers.html", customers=customers)
+        page = int(request.args.get("page", 1))
+        per_page = 20
+        total = col.count_documents({})
+        customers_data = list(col.find().skip((page - 1) * per_page).limit(per_page))
+        
+        for cust in customers_data:
+            cust["_id"] = str(cust["_id"])
+        
+        return render_template("admin/customers.html",
+            customers=customers_data,
+            page=page,
+            total=total,
+            per_page=per_page
+        )
     except Exception as e:
-        info = app_logger.log_error(e, "admin.customers_list")
-        return render_template("admin/customers.html", customers=[])
+        info = app_logger.log_error(e, "admin.customers")
+
+
+@bp.route("/stock")
+def stock():
+    try:
+        col = get_collection("seeds")
+        page = int(request.args.get("page", 1))
+        per_page = 20
+        total = col.count_documents({})
+        seeds_data = list(col.find().skip((page - 1) * per_page).limit(per_page))
+        
+        for seed in seeds_data:
+            seed["_id"] = str(seed["_id"])
+        
+        return render_template("admin/stock.html",
+            seeds=seeds_data,
+            page=page,
+            total=total,
+            per_page=per_page
+        )
+    except Exception as e:
+        info = app_logger.log_error(e, "admin.stock")
+
+
+@bp.route("/stock/<seed_id>/update", methods=["POST"])
+def stock_update(seed_id):
+    try:
+        from bson import ObjectId
+        col = get_collection("seeds")
+        stock = int(request.form.get("stock", 0))
+        col.update_one({"_id": ObjectId(seed_id)}, {"$set": {"stock": stock}})
+        app_logger.info(f"Stock updated: {seed_id} -> {stock}")
+        return redirect(f"/admin/stock?lang={get_lang()}")
+    except Exception as e:
+        info = app_logger.log_error(e, "admin.stock_update")
+
+
+@bp.route("/users")
+def users():
+    try:
+        col = get_collection("customers")
+        page = int(request.args.get("page", 1))
+        per_page = 20
+        total = col.count_documents({})
+        users_data = list(col.find().skip((page - 1) * per_page).limit(per_page))
+        
+        for user in users_data:
+            user["_id"] = str(user["_id"])
+        
+        return render_template("admin/users.html",
+            users=users_data,
+            page=page,
+            total=total,
+            per_page=per_page
+        )
+    except Exception as e:
+        info = app_logger.log_error(e, "admin.users")
+
+
+@bp.route("/users/<user_id>/status", methods=["POST"])
+def user_status(user_id):
+    try:
+        from bson import ObjectId
+        col = get_collection("customers")
+        status = request.form.get("status", "active")
+        col.update_one({"_id": ObjectId(user_id)}, {"$set": {"status": status}})
+        app_logger.info(f"User status updated: {user_id} -> {status}")
+        return redirect(f"/admin/users?lang={get_lang()}")
+    except Exception as e:
+        info = app_logger.log_error(e, "admin.user_status")

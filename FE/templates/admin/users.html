@@ -1,0 +1,70 @@
+{% extends "admin/base_admin.html" %}
+{% block admin_content %}
+<div class="admin-toolbar">
+    <h2>{{ t.user_management if t.user_management is defined else 'User Management' }}</h2>
+</div>
+
+<div class="admin-table-wrapper">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>{{ t.name }}</th>
+                <th>{{ t.username if t.username is defined else 'Username' }}</th>
+                <th>{{ t.email if t.email is defined else 'Email' }}</th>
+                <th>{{ t.role }}</th>
+                <th>{{ t.status }}</th>
+                <th>{{ t.actions }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.name }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email or '-' }}</td>
+                <td>{{ user.role }}</td>
+                <td>
+                    <span class="status-badge {% if user.status == 'active' %}status-active{% else %}status-inactive{% endif %}">
+                        {{ user.status }}
+                    </span>
+                </td>
+                <td>
+                    <div class="actions">
+                        <form method="POST" action="/admin/users/{{ user._id }}/status?lang={{ lang }}">
+                            {% if user.status == 'active' %}
+                            <input type="hidden" name="status" value="inactive">
+                            <button type="submit" class="btn-small btn-delete">Disable</button>
+                            {% else %}
+                            <input type="hidden" name="status" value="active">
+                            <button type="submit" class="btn-small btn-edit">Enable</button>
+                            {% endif %}
+                        </form>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination">
+    {% if page > 1 %}
+    <a href="?page={{ page - 1 }}&lang={{ lang }}" class="btn btn-outline">Previous</a>
+    {% endif %}
+    <span class="page-info">Page {{ page }} of {{ (total / per_page)|round(0, 'ceil')|int }}</span>
+    {% if page * per_page < total %}
+    <a href="?page={{ page + 1 }}&lang={{ lang }}" class="btn btn-outline">Next</a>
+    {% endif %}
+</div>
+
+<style>
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.status-active { background: #c8e6c9; color: #2e7d32; }
+.status-inactive { background: #ffcdd2; color: #c62828; }
+</style>
+{% endblock %}

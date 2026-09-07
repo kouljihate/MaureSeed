@@ -86,15 +86,40 @@ def contact():
 def login():
     try:
         if request.method == "POST":
-            name = request.form.get("name", "Guest")
-            role = request.form.get("role", "guest")
-            login_user(role, name)
+            login_type = request.form.get("login_type", "guest")
+            if login_type == "guest":
+                name = request.form.get("name", "Guest")
+                login_guest(name)
+            elif login_type == "customer":
+                username = request.form.get("username", "")
+                password = request.form.get("password", "")
+                if not login_customer(username, password):
+                    return render_template("login.html", error="Invalid username or password")
             lang = get_lang()
             return redirect(f"/?lang={lang}")
         return render_template("login.html")
     except Exception as e:
         info = app_logger.log_error(e, "fe.login")
         return render_template("login.html")
+
+
+@bp.route("/register", methods=["POST"])
+def register():
+    try:
+        from shared.roles import register_customer
+        name = request.form.get("name", "")
+        username = request.form.get("username", "")
+        email = request.form.get("email", "")
+        password = request.form.get("password", "")
+        success, message = register_customer(username, password, name, email)
+        if success:
+            login_customer(username, password)
+            lang = get_lang()
+            return redirect(f"/?lang={lang}")
+        return render_template("login.html", error=message)
+    except Exception as e:
+        info = app_logger.log_error(e, "fe.register")
+        return render_template("login.html", error="Registration failed")
 
 
 @bp.route("/logout")

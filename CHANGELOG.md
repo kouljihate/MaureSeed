@@ -2,6 +2,20 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.13.0] - 2026-09-07
+
+### Added
+- Guest login with name only (no password)
+- Customer registration and login
+- User name displayed near login icon when logged in
+- Stock Management page for admin
+- User Management page for admin
+- New i18n translations for all languages
+
+### Changed
+- Login page now supports Guest (name only) and Customer (username/password)
+- Header shows user name and logout icon when logged in
+
 ## [1.12.0] - 2026-09-07
 
 ### Added

@@ -1,0 +1,75 @@
+{% extends "admin/base_admin.html" %}
+{% block admin_content %}
+<div class="admin-toolbar">
+    <h2>{{ t.stock_management if t.stock_management is defined else 'Stock Management' }}</h2>
+</div>
+
+<div class="admin-table-wrapper">
+    <table class="admin-table">
+        <thead>
+            <tr>
+                <th>{{ t.name }}</th>
+                <th>{{ t.category }}</th>
+                <th>{{ t.country }}</th>
+                <th>{{ t.price }}</th>
+                <th>{{ t.stock }}</th>
+                <th>{{ t.actions }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for seed in seeds %}
+            <tr>
+                <td>{{ seed.name }}</td>
+                <td>{{ seed.category }}</td>
+                <td>{{ seed.country }}</td>
+                <td>{{ seed.price }} {{ seed.currency }}</td>
+                <td>
+                    <span class="stock-badge {% if seed.stock < 5 %}stock-low{% elif seed.stock < 20 %}stock-mid{% else %}stock-high{% endif %}">
+                        {{ seed.stock }}
+                    </span>
+                </td>
+                <td>
+                    <form method="POST" action="/admin/stock/{{ seed._id }}/update?lang={{ lang }}" class="stock-form">
+                        <input type="number" name="stock" value="{{ seed.stock }}" min="0" class="stock-input">
+                        <button type="submit" class="btn-small btn-edit">Update</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="pagination">
+    {% if page > 1 %}
+    <a href="?page={{ page - 1 }}&lang={{ lang }}" class="btn btn-outline">Previous</a>
+    {% endif %}
+    <span class="page-info">Page {{ page }} of {{ (total / per_page)|round(0, 'ceil')|int }}</span>
+    {% if page * per_page < total %}
+    <a href="?page={{ page + 1 }}&lang={{ lang }}" class="btn btn-outline">Next</a>
+    {% endif %}
+</div>
+
+<style>
+.stock-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+.stock-low { background: #ffcdd2; color: #c62828; }
+.stock-mid { background: #fff3e0; color: #e65100; }
+.stock-high { background: #c8e6c9; color: #2e7d32; }
+.stock-form {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+.stock-input {
+    width: 70px;
+    padding: 4px 8px;
+    border: 1px solid var(--earth-light);
+    border-radius: var(--radius-sm);
+}
+</style>
+{% endblock %}
