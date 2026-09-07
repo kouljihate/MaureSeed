@@ -2,6 +2,20 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.1.0] - 2026-09-07
+
+### Changed
+- Removed "Our Countries" section from landing page and footer
+- Replaced Google Fonts Noto Kufi Arabic with local VIP Rawy Thin font
+- Grouped rounded language buttons in header (pill-style)
+- Footer redesigned: About (left) / Empty (middle) / Useful Links (right) with extreme alignment
+- Footer columns set to equal 3-column grid layout
+
+### Added
+- Local font file: `assets/fonts/VIP_Rawy_Thin.ttf`
+- `@font-face` declaration for VIP Rawy Thin
+- RTL-aware font switching: Comfortaa for EN/FR, VIP Rawy Thin for AR
+
 ## [1.0.0] - 2026-09-07
 
 ### Added
