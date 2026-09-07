@@ -32,6 +32,19 @@ def catalogue():
         return render_template("catalogue.html", seeds=[])
 
 
+@bp.route("/seed/<seed_id>")
+def seed_detail(seed_id):
+    try:
+        col = get_collection("seeds")
+        seed = col.find_one({"id": seed_id}, {"_id": 0})
+        if not seed:
+            return render_template("404.html"), 404
+        return render_template("seed_detail.html", seed=seed)
+    except Exception as e:
+        info = app_logger.log_error(e, f"fe.seed_detail({seed_id})")
+        return render_template("404.html"), 500
+
+
 @bp.route("/about")
 def about():
     try:

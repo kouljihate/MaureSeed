@@ -44,7 +44,7 @@
         <p class="section-desc">{{ t.section_catalogue_desc }}</p>
         <div class="seeds-grid">
             {% for seed in featured %}
-            <div class="seed-card">
+            <a href="/seed/{{ seed.id }}?lang={{ lang }}" class="seed-card">
                 <div class="seed-img">
                     {% if seed.photo %}
                     <img src="{{ seed.photo }}" alt="{{ seed['name_' + lang] if lang != 'ar' else seed.name_ar }}" loading="lazy">
@@ -56,8 +56,9 @@
                     <h3>{{ seed['name_' + lang] if lang != 'ar' else seed.name_ar }}</h3>
                     <span class="seed-country">{{ seed.country }}</span>
                     <span class="seed-category">{{ seed.category }}</span>
+                    <span class="seed-price-tag">{{ "%.2f"|format(seed.price) }} MAD</span>
                 </div>
-            </div>
+            </a>
             {% endfor %}
         </div>
         <div class="text-center">

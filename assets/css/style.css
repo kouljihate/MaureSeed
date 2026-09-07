@@ -323,6 +323,169 @@ body {
     color: var(--text-mid);
 }
 
+.seed-card {
+    text-decoration: none;
+    color: inherit;
+}
+
+.seed-price-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    background: var(--green-pale);
+    margin-top: 4px;
+}
+
+/* SEED DETAIL */
+.seed-detail {
+    padding: 40px 20px;
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: var(--green-mid);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.back-link:hover { color: var(--green-dark); }
+
+.seed-detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.seed-detail-photo {
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--green-pale);
+}
+
+.seed-detail-photo img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.seed-detail-placeholder {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 5rem;
+}
+
+.seed-detail-info h1 {
+    font-size: 1.8rem;
+    color: var(--green-dark);
+    margin-bottom: 16px;
+}
+
+.seed-meta {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.seed-category-badge, .seed-country-badge {
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.seed-category-badge {
+    background: var(--green-pale);
+    color: var(--green-dark);
+}
+
+.seed-country-badge {
+    background: var(--earth-light);
+    color: var(--earth-dark);
+}
+
+.seed-price-box {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.seed-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--green-dark);
+}
+
+.seed-stock {
+    font-size: 0.9rem;
+    color: var(--text-mid);
+}
+
+.seed-stock.out-of-stock {
+    color: #c62828;
+    font-weight: 600;
+}
+
+.btn-add-cart {
+    width: 100%;
+    padding: 14px;
+    font-size: 1rem;
+}
+
+/* SEED DETAIL TABS */
+.seed-detail-tabs {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+}
+
+.tab-buttons {
+    display: flex;
+    border-bottom: 1px solid var(--earth-light);
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 14px;
+    background: none;
+    border: none;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-mid);
+    cursor: pointer;
+    transition: all 0.2s;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-btn:hover { color: var(--green-mid); }
+
+.tab-btn.active {
+    color: var(--green-dark);
+    border-bottom-color: var(--green-mid);
+    background: var(--green-pale);
+}
+
+.tab-content {
+    display: none;
+    padding: 24px;
+}
+
+.tab-content.active { display: block; }
+
+.tab-content p {
+    color: var(--text-mid);
+    line-height: 1.8;
+}
+
 /* CATALOGUE */
 .catalogue {
     padding: 40px 20px;

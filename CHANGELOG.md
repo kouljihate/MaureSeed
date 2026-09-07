@@ -2,6 +2,19 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.9.0] - 2026-09-07
+
+### Added
+- Seed detail page with tabs (Description, Usage, Conservation)
+- Price and stock fields for each seed
+- Seed cards now link to detail page
+- 404 page for missing seeds
+- i18n translations for new labels (FR/AR/EN)
+
+### Changed
+- Regenerated 10,000 seeds with price and stock data
+- Seed cards display price tag
+
 ## [1.8.0] - 2026-09-07
 
 ### Changed

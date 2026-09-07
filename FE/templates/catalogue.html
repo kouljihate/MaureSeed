@@ -33,7 +33,7 @@
 
             <div class="seeds-grid" id="seeds-grid">
                 {% for seed in seeds %}
-                <div class="seed-card" data-category="{{ seed.category }}">
+                <a href="/seed/{{ seed.id }}?lang={{ lang }}" class="seed-card" data-category="{{ seed.category }}">
                     <div class="seed-img">
                         {% if seed.photo %}
                         <img src="{{ seed.photo }}" alt="{{ seed['name_' + lang] if lang != 'ar' else seed.name_ar }}" loading="lazy">
@@ -45,11 +45,12 @@
                         <h3>{{ seed['name_' + lang] if lang != 'ar' else seed.name_ar }}</h3>
                         <span class="seed-country">{{ seed.country }}</span>
                         <span class="seed-category">{{ seed.category }}</span>
+                        <span class="seed-price-tag">{{ "%.2f"|format(seed.price) }} MAD</span>
                         {% if seed.description %}
                         <p class="seed-desc">{{ seed['description_' + lang] if lang != 'ar' else seed.description_ar }}</p>
                         {% endif %}
                     </div>
-                </div>
+                </a>
                 {% endfor %}
             </div>
         </div>

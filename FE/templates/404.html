@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="page-header">
+    <div class="container">
+        <h1>404</h1>
+        <p>{{ t.not_found if t.not_found is defined else 'Page not found' }}</p>
+    </div>
+</section>
+
+<section class="about">
+    <div class="container text-center">
+        <a href="/?lang={{ lang }}" class="btn btn-primary">{{ t.nav_home }}</a>
+    </div>
+</section>
+
+{% endblock %}

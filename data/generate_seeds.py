@@ -728,6 +728,10 @@ def generate_seed(index):
 
     featured = random.random() > 0.92
 
+    # Price and stock
+    price = round(random.uniform(1.5, 15.0), 2)
+    stock = random.randint(0, 500)
+
     return {
         "id": f"seed-{index:05d}",
         "name_en": name_en,
@@ -745,6 +749,8 @@ def generate_seed(index):
         "conservation_fr": conservation_fr,
         "conservation_ar": conservation_ar,
         "photo": photo_url,
+        "price": price,
+        "stock": stock,
         "featured": featured,
     }
 
