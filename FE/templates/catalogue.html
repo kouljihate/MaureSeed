@@ -12,15 +12,6 @@
     <div class="container">
         <div class="catalogue-filters">
             <div class="filter-group">
-                <label>{{ t.nav_countries }}</label>
-                <select id="filter-country" onchange="filterSeeds()">
-                    <option value="">{{ t.view_all }}</option>
-                    {% for c in countries %}
-                    <option value="{{ c.id }}">{{ c.flag }} {{ c['name_' + lang] if lang != 'ar' else c.name_ar }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="filter-group">
                 <label>{{ t.categories }}</label>
                 <select id="filter-category" onchange="filterSeeds()">
                     <option value="">{{ t.view_all }}</option>
@@ -36,7 +27,7 @@
 
         <div class="seeds-grid" id="seeds-grid">
             {% for seed in seeds %}
-            <div class="seed-card" data-country="{{ seed.country }}" data-category="{{ seed.category }}">
+            <div class="seed-card" data-category="{{ seed.category }}">
                 <div class="seed-img">🌱</div>
                 <div class="seed-info">
                     <h3>{{ seed['name_' + lang] if lang != 'ar' else seed.name_ar }}</h3>

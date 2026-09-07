@@ -2,6 +2,17 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.3.0] - 2026-09-07
+
+### Changed
+- Removed countries filter from catalogue page
+- Simplified JS filter to category-only
+- Cleaned up FE routes (removed countries references)
+- Fixed seed_db.py sys.path for proper module imports
+
+### Fixed
+- Catalogue now loads all 10,000 seeds from MongoDB
+
 ## [1.2.0] - 2026-09-07
 
 ### Added

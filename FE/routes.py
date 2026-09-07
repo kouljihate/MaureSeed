@@ -1,7 +1,6 @@
 from flask import Blueprint, render_template, request
 from shared.database import get_collection
 from shared.i18n import get_lang
-from shared.utils import seed_countries
 from shared.logger import app_logger
 
 bp = Blueprint("fe", __name__)
@@ -23,18 +22,14 @@ def catalogue():
     try:
         col = get_collection("seeds")
         query = {}
-        country = request.args.get("country")
         category = request.args.get("category")
-        if country:
-            query["country"] = country
         if category:
             query["category"] = category
         seeds = list(col.find(query, {"_id": 0}))
-        countries = seed_countries()
-        return render_template("catalogue.html", seeds=seeds, countries=countries)
+        return render_template("catalogue.html", seeds=seeds)
     except Exception as e:
         info = app_logger.log_error(e, "fe.catalogue")
-        return render_template("catalogue.html", seeds=[], countries=[])
+        return render_template("catalogue.html", seeds=[])
 
 
 @bp.route("/about")
