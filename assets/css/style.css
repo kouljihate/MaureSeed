@@ -21,13 +21,20 @@
     --radius: 12px;
     --radius-sm: 8px;
     --font-en: 'Comfortaa', cursive;
-    --font-ar: 'Noto Kufi Arabic', sans-serif;
+    --font-ar: 'VIP Rawy Thin', sans-serif;
+}
+
+@font-face {
+    font-family: 'VIP Rawy Thin';
+    src: url('../fonts/VIP_Rawy_Thin.ttf') format('truetype');
+    font-weight: 100 900;
+    font-display: swap;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-html[dir="rtl"] {
-    --font-en: 'Noto Kufi Arabic', sans-serif;
+html[dir="rtl"] body {
+    font-family: var(--font-ar);
 }
 
 body {
