@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, request, redirect, url_for
 from shared.database import get_collection
 from shared.i18n import get_lang
 from shared.logger import app_logger
-from shared.roles import login_user, logout_user, get_current_user
+from shared.roles import login_guest, login_customer, logout_user, get_current_user
 
 bp = Blueprint("fe", __name__)
 

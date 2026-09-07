@@ -23,7 +23,7 @@
                 <a href="/contact?lang={{ lang }}" class="nav-link">{{ t.nav_contact }}</a>
             </nav>
             <div class="header-actions">
-                {% if current_user.role != 'guest' %}
+                {% if current_user and current_user.name and current_user.name != 'Guest' %}
                 <span class="user-name">{{ current_user.name }}</span>
                 <a href="/logout?lang={{ lang }}" class="login-icon" title="{{ t.logout if t.logout is defined else 'Logout' }}">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">

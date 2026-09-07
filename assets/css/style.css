@@ -120,6 +120,12 @@ body {
     gap: 12px;
 }
 
+.user-name {
+    font-weight: 600;
+    color: var(--green-dark);
+    font-size: 0.9rem;
+}
+
 .login-icon {
     display: flex;
     align-items: center;
