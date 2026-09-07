@@ -1,0 +1,63 @@
+import os
+import sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from flask import Flask, session
+from config.config import Config
+from shared.database import get_db, close_db
+from shared.i18n import get_lang, get_translations
+from shared.logger import app_logger
+from BE.routes import bp as api_bp
+from FE.routes import bp as fe_bp
+
+
+def create_app():
+    try:
+        app = Flask(
+            __name__,
+            template_folder=os.path.join(os.path.dirname(__file__), "FE", "templates"),
+            static_folder=os.path.join(os.path.dirname(__file__), "assets"),
+            static_url_path="/assets",
+        )
+        app.config.from_object(Config)
+        app.secret_key = Config.SECRET_KEY
+
+        app.register_blueprint(api_bp, url_prefix="/api")
+        app.register_blueprint(fe_bp)
+
+        @app.context_processor
+        def inject_globals():
+            try:
+                return {
+                    "lang": get_lang(),
+                    "t": get_translations(),
+                    "version": Config.VERSION,
+                    "app_name": Config.APP_NAME,
+                    "app_name_ar": Config.APP_NAME_AR,
+                }
+            except Exception as e:
+                app_logger.log_error(e, "inject_globals")
+                return {"lang": "fr", "t": {}, "version": "0.0.0", "app_name": "MaureSeed", "app_name_ar": "مورسيد"}
+
+        @app.teardown_appcontext
+        def shutdown_db(exception=None):
+            try:
+                close_db()
+            except Exception as e:
+                app_logger.log_error(e, "shutdown_db")
+
+        app_logger.info(f"MaureSeed v{Config.VERSION} initialized")
+        return app
+    except Exception as e:
+        app_logger.log_error(e, "create_app")
+        raise
+
+
+if __name__ == "__main__":
+    try:
+        app = create_app()
+        app.run(debug=True, host="0.0.0.0", port=5000)
+    except Exception as e:
+        app_logger.log_error(e, "__main__")
+        raise

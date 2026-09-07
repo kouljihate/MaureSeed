@@ -1,0 +1,122 @@
+[
+  {
+    "id": "tomate-maroc",
+    "name_en": "Moroccan Heirloom Tomato",
+    "name_fr": "Tomate ancienne du Maroc",
+    "name_ar": "طماطم مغربية قديمة",
+    "country": "morocco",
+    "category": "vegetables",
+    "description_en": "Traditional Moroccan tomato variety, drought-resistant",
+    "description_fr": "Variété traditionnelle marocaine, résistante à la sécheresse",
+    "description_ar": "نوع طماطم مغربية تقليدية، مقاومة للجفاف",
+    "featured": true
+  },
+  {
+    "id": "haricot-algerie",
+    "name_en": "Algerian White Bean",
+    "name_fr": "Haricot blanc d'Algérie",
+    "name_ar": "فاصوليا بيضاء جزائرية",
+    "country": "algeria",
+    "category": "legumes",
+    "description_en": "Hearty white bean from the Algerian highlands",
+    "description_fr": "Haricot blanc généreux des hauts plateaux algériens",
+    "description_ar": "فاصوليا بيضاء من الهضاب العليا الجزائرية",
+    "featured": true
+  },
+  {
+    "id": "epinard-tunisie",
+    "name_en": "Tunisian Spinach",
+    "name_fr": "Épinard de Tunisie",
+    "name_ar": "سبانخ تونسية",
+    "country": "tunisia",
+    "category": "vegetables",
+    "description_en": "Heat-tolerant spinach variety from Tunisia",
+    "description_fr": "Variété d'épinard tolérante à la chaleur de Tunisie",
+    "description_ar": "نوع سبانخ يتحمل الحرارة من تونس",
+    "featured": false
+  },
+  {
+    "id": "mil-mauritanie",
+    "name_en": "Mauritanian Pearl Millet",
+    "name_fr": "Mil perlé de Mauritanie",
+    "name_ar": "دوار موريتاني",
+    "country": "mauritania",
+    "category": "cereals",
+    "description_en": "Ancient pearl millet adapted to Saharan conditions",
+    "description_fr": "Mil perlé ancien adapté aux conditions sahariennes",
+    "description_ar": "دوار قديم مكيف لظروف الصحراء",
+    "featured": true
+  },
+  {
+    "id": "sorgho-mali",
+    "name_en": "Malian Sorghum",
+    "name_fr": "Sorgho du Mali",
+    "name_ar": "ذرة رفيعة مالية",
+    "country": "mali",
+    "category": "cereals",
+    "description_en": "Traditional Malian sorghum, staple food crop",
+    "description_fr": "Sorgho traditionnel malien, cultures vivrières",
+    "description_ar": "ذرة رفيعة مالية تقليدية، محصول غذائي أساسي",
+    "featured": true
+  },
+  {
+    "id": "menthe-maroc",
+    "name_en": "Moroccan Mint",
+    "name_fr": "Menthe du Maroc",
+    "name_ar": "نعناع مغربي",
+    "country": "morocco",
+    "category": "herbs",
+    "description_en": "Aromatic mint used in traditional Moroccan tea",
+    "description_fr": "Menthe aromatique utilisée dans le thé marocain traditionnel",
+    "description_ar": "نعناع عطري يُستخدم في الشاي المغربي التقليدي",
+    "featured": true
+  },
+  {
+    "id": "oeillet-tunisie",
+    "name_en": "Tunisian Pink Carnation",
+    "name_fr": "Œillet rose de Tunisie",
+    "name_ar": "قرنفل وردي تونسي",
+    "country": "tunisia",
+    "category": "flowers",
+    "description_en": "Beautiful pink carnation from Tunisian gardens",
+    "description_fr": "Bel œillet rose des jardins tunisiens",
+    "description_ar": "قرنفل وردي جميل من حدائق تونس",
+    "featured": false
+  },
+  {
+    "id": "fève-algerie",
+    "name_en": "Algerian Fava Bean",
+    "name_fr": "Fève d'Algérie",
+    "name_ar": "فول جزائري",
+    "country": "algeria",
+    "category": "legumes",
+    "description_en": "Robust fava bean from Algerian tradition",
+    "description_fr": "Fève robuste de la tradition algérienne",
+    "description_ar": "فول قوي من التراث الجزائري",
+    "featured": true
+  },
+  {
+    "id": "poivron-mali",
+    "name_en": "Malian Pepper",
+    "name_fr": "Piment du Mali",
+    "name_ar": "فليفلة مالية",
+    "country": "mali",
+    "category": "vegetables",
+    "description_en": "Spicy pepper from Mali, essential in local cuisine",
+    "description_fr": "Piment épicé du Mali, essentiel dans la cuisine locale",
+    "description_ar": "فليفلة حارة من مالي، أساسية في المطبخ المحلي",
+    "featured": false
+  },
+  {
+    "id": "melon-mauritanie",
+    "name_en": "Mauritanian Melon",
+    "name_fr": "Melon de Mauritanie",
+    "name_ar": "شمام موريتاني",
+    "country": "mauritania",
+    "category": "vegetables",
+    "description_en": "Sweet melon adapted to arid conditions",
+    "description_fr": "Melon sucré adapté aux conditions arides",
+    "description_ar": "شمام حلو مكيف للظروف الجافة",
+    "featured": false
+  }
+]

@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="hero">
+    <div class="container">
+        <h1 class="hero-title">{{ t.hero_title }}</h1>
+        <p class="hero-subtitle">{{ t.hero_subtitle }}</p>
+        <a href="/catalogue?lang={{ lang }}" class="btn btn-primary">{{ t.nav_catalogue }}</a>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2 class="section-title">{{ t.section_why }}</h2>
+        <p class="section-desc">{{ t.section_why_desc }}</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">🌿</div>
+                <h3>{{ t.feature_bio }}</h3>
+                <p>{{ t.feature_bio_desc }}</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏛️</div>
+                <h3>{{ t.feature_ancient }}</h3>
+                <p>{{ t.feature_ancient_desc }}</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔄</div>
+                <h3>{{ t.feature_repro }}</h3>
+                <p>{{ t.feature_repro_desc }}</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">☀️</div>
+                <h3>{{ t.feature_local }}</h3>
+                <p>{{ t.feature_local_desc }}</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="countries-section">
+    <div class="container">
+        <h2 class="section-title">{{ t.section_countries }}</h2>
+        <div class="countries-grid">
+            {% for c in countries %}
+            <a href="/catalogue?country={{ c.id }}&lang={{ lang }}" class="country-card">
+                <span class="country-flag">{{ c.flag }}</span>
+                <span class="country-name">{{ c['name_' + lang] if lang != 'ar' else c.name_ar }}</span>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="catalogue-preview">
+    <div class="container">
+        <h2 class="section-title">{{ t.section_catalogue }}</h2>
+        <p class="section-desc">{{ t.section_catalogue_desc }}</p>
+        <div class="seeds-grid">
+            {% for seed in featured %}
+            <div class="seed-card">
+                <div class="seed-img">🌱</div>
+                <div class="seed-info">
+                    <h3>{{ seed['name_' + lang] if lang != 'ar' else seed.name_ar }}</h3>
+                    <span class="seed-country">{{ seed.country }}</span>
+                    <span class="seed-category">{{ seed.category }}</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center">
+            <a href="/catalogue?lang={{ lang }}" class="btn btn-secondary">{{ t.view_all }}</a>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

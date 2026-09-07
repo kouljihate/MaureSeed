@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="page-header">
+    <div class="container">
+        <h1>{{ t.nav_about }}</h1>
+    </div>
+</section>
+
+<section class="about">
+    <div class="container">
+        <div class="about-content">
+            <h2>{{ t.section_why }}</h2>
+            <p>{{ t.section_why_desc }}</p>
+            <p>{{ t.footer_about }}</p>
+            <div class="about-features">
+                <div class="about-feature">
+                    <h3>{{ t.feature_bio }}</h3>
+                    <p>{{ t.feature_bio_desc }}</p>
+                </div>
+                <div class="about-feature">
+                    <h3>{{ t.feature_ancient }}</h3>
+                    <p>{{ t.feature_ancient_desc }}</p>
+                </div>
+                <div class="about-feature">
+                    <h3>{{ t.feature_repro }}</h3>
+                    <p>{{ t.feature_repro_desc }}</p>
+                </div>
+                <div class="about-feature">
+                    <h3>{{ t.feature_local }}</h3>
+                    <p>{{ t.feature_local_desc }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

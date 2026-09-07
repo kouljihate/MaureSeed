@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block content %}
+
+<section class="page-header">
+    <div class="container">
+        <h1>{{ t.section_catalogue }}</h1>
+        <p>{{ t.section_catalogue_desc }}</p>
+    </div>
+</section>
+
+<section class="catalogue">
+    <div class="container">
+        <div class="catalogue-filters">
+            <div class="filter-group">
+                <label>{{ t.nav_countries }}</label>
+                <select id="filter-country" onchange="filterSeeds()">
+                    <option value="">{{ t.view_all }}</option>
+                    {% for c in countries %}
+                    <option value="{{ c.id }}">{{ c.flag }} {{ c['name_' + lang] if lang != 'ar' else c.name_ar }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>{{ t.categories }}</label>
+                <select id="filter-category" onchange="filterSeeds()">
+                    <option value="">{{ t.view_all }}</option>
+                    <option value="vegetables">{{ t.cat_vegetables }}</option>
+                    <option value="herbs">{{ t.cat_herbs }}</option>
+                    <option value="flowers">{{ t.cat_fleurs }}</option>
+                    <option value="cereals">{{ t.cat_cereales }}</option>
+                    <option value="legumes">{{ t.cat_legumes }}</option>
+                    <option value="fruitiers">{{ t.cat_fruitiers }}</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="seeds-grid" id="seeds-grid">
+            {% for seed in seeds %}
+            <div class="seed-card" data-country="{{ seed.country }}" data-category="{{ seed.category }}">
+                <div class="seed-img">🌱</div>
+                <div class="seed-info">
+                    <h3>{{ seed['name_' + lang] if lang != 'ar' else seed.name_ar }}</h3>
+                    <span class="seed-country">{{ seed.country }}</span>
+                    <span class="seed-category">{{ seed.category }}</span>
+                    {% if seed.description %}
+                    <p class="seed-desc">{{ seed['description_' + lang] if lang != 'ar' else seed.description_ar }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}
