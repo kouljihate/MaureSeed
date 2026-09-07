@@ -2,6 +2,13 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.5.0] - 2026-09-07
+
+### Added
+- Animated loading spinner on catalogue page
+- Spinner shows while data loads, fades out when ready
+- Pulse animation on loading text
+
 ## [1.4.0] - 2026-09-07
 
 ### Added
