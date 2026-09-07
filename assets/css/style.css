@@ -404,6 +404,8 @@ body {
     font-size: 0.9rem;
 }
 .footer-col a:hover { opacity: 1; }
+.footer-left { text-align: left; }
+.footer-right { text-align: right; }
 
 .footer-bottom {
     grid-column: 1 / -1;
