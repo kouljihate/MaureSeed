@@ -5,6 +5,8 @@ import sys
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from shared.seed_id import generate_seed_id, get_type_id, get_variety_id
+
 COUNTRIES = ["morocco", "algeria", "tunisia", "mauritania", "mali"]
 
 # Seed-specific photo URLs (Unsplash photo IDs)
@@ -696,6 +698,9 @@ def get_seed_photo(seed_name, category):
     return DEFAULT_PHOTOS.get(category, DEFAULT_PHOTOS["vegetables"])
 
 
+# Track sequences per category/type/variety combination
+SEQUENCE_COUNTERS = {}
+
 def generate_seed(index):
     category = random.choice(list(CATEGORIES.keys()))
     cat_data = CATEGORIES[category]
@@ -704,12 +709,13 @@ def generate_seed(index):
 
     name_en_base = random.choice(cat_data["en"])
     name_ar_base = random.choice(cat_data["ar"])
+    variety_name = VARIETIES[variety_idx]
 
     suffix_en = random.choice(SUFFIXES_EN) if random.random() > 0.6 else ""
     suffix_ar = random.choice(SUFFIXES_AR) if random.random() > 0.6 else ""
 
-    name_en = f"{VARIETIES[variety_idx]} {name_en_base} {suffix_en}".strip()
-    name_fr = f"{name_en_base} {VARIETIES[variety_idx]} {suffix_en}".strip()
+    name_en = f"{variety_name} {name_en_base} {suffix_en}".strip()
+    name_fr = f"{name_en_base} {variety_name} {suffix_en}".strip()
     name_ar = f"{name_ar_base} {VARIETIES_AR[variety_idx]} {suffix_ar}".strip()
 
     desc_en = random.choice(DESCRIPTIONS_EN)
@@ -729,11 +735,20 @@ def generate_seed(index):
     featured = random.random() > 0.92
 
     # Price and stock
-    price = round(random.uniform(1.5, 15.0), 2)
+    cost_price = round(random.uniform(1.0, 10.0), 2)
+    sell_price = round(cost_price * random.uniform(1.5, 3.0), 2)
     stock = random.randint(0, 500)
 
+    # Generate custom Seed ID
+    type_id = get_type_id(name_en_base)
+    var_id = get_variety_id(variety_name)
+    key = f"{category}_{type_id}_{var_id}"
+    SEQUENCE_COUNTERS[key] = SEQUENCE_COUNTERS.get(key, 0) + 1
+    sequence = SEQUENCE_COUNTERS[key]
+    seed_id = generate_seed_id(category, name_en_base, variety_name, sequence)
+
     return {
-        "id": f"seed-{index:05d}",
+        "id": seed_id,
         "name_en": name_en,
         "name_fr": name_fr,
         "name_ar": name_ar,
@@ -749,7 +764,8 @@ def generate_seed(index):
         "conservation_fr": conservation_fr,
         "conservation_ar": conservation_ar,
         "photo": photo_url,
-        "price": price,
+        "cost_price": cost_price,
+        "sell_price": sell_price,
         "stock": stock,
         "featured": featured,
     }

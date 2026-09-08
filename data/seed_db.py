@@ -19,6 +19,9 @@ def seed_database():
             seeds = json.load(f)
 
         col.drop()
+        # Use custom seed_id as MongoDB _id
+        for seed in seeds:
+            seed["_id"] = seed["id"]
         col.insert_many(seeds)
         print(f"Seeded {len(seeds)} seeds into {Config.MONGO_DB}.seeds")
         app_logger.info(f"Seeded {len(seeds)} seeds into database")

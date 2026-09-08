@@ -179,6 +179,53 @@
     gap: 8px;
 }
 
+.btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-edit {
+    background: var(--green-pale);
+    color: var(--green-dark);
+}
+
+.btn-edit:hover {
+    background: var(--green-mid);
+    color: var(--white);
+}
+
+.btn-view {
+    background: var(--blue-pale);
+    color: var(--blue-dark);
+}
+
+.btn-view:hover {
+    background: var(--blue-mid);
+    color: var(--white);
+}
+
+.btn-delete {
+    background: #ffcdd2;
+    color: #c62828;
+}
+
+.btn-delete:hover {
+    background: #c62828;
+    color: var(--white);
+}
+
+.inline-form {
+    display: inline;
+}
+
 .btn-small {
     padding: 4px 12px;
     font-size: 0.8rem;
@@ -187,20 +234,6 @@
     cursor: pointer;
     text-decoration: none;
     display: inline-block;
-}
-
-.btn-edit {
-    background: var(--green-mid);
-    color: var(--white);
-}
-
-.btn-delete {
-    background: #c62828;
-    color: var(--white);
-}
-
-.inline-form {
-    display: inline;
 }
 
 /* FORM */

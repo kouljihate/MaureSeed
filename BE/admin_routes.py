@@ -96,7 +96,8 @@ def seeds():
             seeds=seeds_data,
             page=page,
             total=total,
-            per_page=per_page
+            per_page=per_page,
+            total_pages=(total + per_page - 1) // per_page
         )
     except Exception as e:
         info = app_logger.log_error(e, "admin.seeds")
@@ -119,7 +120,8 @@ def seed_new():
                 "category": request.form.get("category", ""),
                 "country": request.form.get("country", ""),
                 "region": request.form.get("region", ""),
-                "price": float(request.form.get("price", 0)),
+                "cost_price": float(request.form.get("cost_price", 0)),
+                "sell_price": float(request.form.get("sell_price", 0)),
                 "currency": "MAD",
                 "stock": int(request.form.get("stock", 0)),
                 "image": request.form.get("image", ""),
@@ -153,7 +155,8 @@ def seed_edit(seed_id):
                 "category": request.form.get("category", ""),
                 "country": request.form.get("country", ""),
                 "region": request.form.get("region", ""),
-                "price": float(request.form.get("price", 0)),
+                "cost_price": float(request.form.get("cost_price", 0)),
+                "sell_price": float(request.form.get("sell_price", 0)),
                 "currency": "MAD",
                 "stock": int(request.form.get("stock", 0)),
                 "image": request.form.get("image", ""),
