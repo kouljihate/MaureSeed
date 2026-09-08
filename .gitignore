@@ -17,3 +17,4 @@ data/*.json
 *.sqlite3
 .mypy_cache/
 .pytest_cache/
+test/*_test.json
