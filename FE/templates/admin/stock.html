@@ -19,10 +19,10 @@
         <tbody>
             {% for seed in seeds %}
             <tr>
-                <td>{{ seed.name }}</td>
+                <td>{{ seed.name_en }}</td>
                 <td>{{ seed.category }}</td>
                 <td>{{ seed.country }}</td>
-                <td>{{ seed.price|format_number(lang) }} {{ seed.currency }}</td>
+                <td>{{ seed.sell_price|format_number(lang) }} {{ seed.currency }}</td>
                 <td>
                     <span class="stock-badge {% if seed.stock < 5 %}stock-low{% elif seed.stock < 20 %}stock-mid{% else %}stock-high{% endif %}">
                         {{ seed.stock|format_number(lang) }}

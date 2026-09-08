@@ -56,7 +56,7 @@
                     <h3>{{ seed['name_' + lang] if lang != 'ar' else seed.name_ar }}</h3>
                     <span class="seed-country">{{ seed.country }}</span>
                     <span class="seed-category">{{ seed.category }}</span>
-                    <span class="seed-price-tag">{{ "%.2f"|format(seed.price)|format_number(lang) }} MAD</span>
+                    <span class="seed-price-tag">{{ "%.2f"|format(seed.sell_price)|format_number(lang) }} MAD</span>
                 </div>
             </a>
             {% endfor %}

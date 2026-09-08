@@ -1,3 +1,5 @@
+from bson.errors import InvalidId
+
 from flask import Blueprint, render_template, request, redirect, session, jsonify, url_for
 from shared.database import get_collection
 from shared.i18n import get_lang
@@ -5,6 +7,20 @@ from shared.logger import app_logger
 from shared.roles import is_admin, login_admin, logout_user, hash_password
 
 bp = Blueprint("admin", __name__, url_prefix="/admin")
+
+
+def seed_id_filter(seed_id):
+    """Return a Mongo _id filter handling both ObjectId and custom string IDs."""
+    try:
+        from bson import ObjectId
+        return {"_id": ObjectId(seed_id)}
+    except InvalidId:
+        return {"_id": seed_id}
+
+
+def find_seed_by_id(col, seed_id):
+    """Find a seed by its _id handling both ObjectId and custom string IDs."""
+    return col.find_one(seed_id_filter(seed_id))
 
 
 @bp.before_request
@@ -140,7 +156,6 @@ def seed_new():
 @bp.route("/seeds/<seed_id>/edit", methods=["GET", "POST"])
 def seed_edit(seed_id):
     try:
-        from bson import ObjectId
         col = get_collection("seeds")
         if request.method == "POST":
             seed = {
@@ -164,10 +179,10 @@ def seed_edit(seed_id):
                 "ancient": request.form.get("ancient") == "on",
                 "featured": request.form.get("featured") == "on",
             }
-            col.update_one({"_id": ObjectId(seed_id)}, {"$set": seed})
+            col.update_one(seed_id_filter(seed_id), {"$set": seed})
             app_logger.info(f"Seed updated: {seed_id}")
             return redirect(f"/admin/seeds?lang={get_lang()}")
-        seed = col.find_one({"_id": ObjectId(seed_id)})
+        seed = find_seed_by_id(col, seed_id)
         seed["_id"] = str(seed["_id"])
         return render_template("admin/seed_form.html", seed=seed)
     except Exception as e:
@@ -177,9 +192,8 @@ def seed_edit(seed_id):
 @bp.route("/seeds/<seed_id>/delete", methods=["POST"])
 def seed_delete(seed_id):
     try:
-        from bson import ObjectId
         col = get_collection("seeds")
-        col.delete_one({"_id": ObjectId(seed_id)})
+        col.delete_one(seed_id_filter(seed_id))
         app_logger.info(f"Seed deleted: {seed_id}")
         return redirect(f"/admin/seeds?lang={get_lang()}")
     except Exception as e:
@@ -233,10 +247,9 @@ def stock():
 @bp.route("/stock/<seed_id>/update", methods=["POST"])
 def stock_update(seed_id):
     try:
-        from bson import ObjectId
         col = get_collection("seeds")
         stock = int(request.form.get("stock", 0))
-        col.update_one({"_id": ObjectId(seed_id)}, {"$set": {"stock": stock}})
+        col.update_one(seed_id_filter(seed_id), {"$set": {"stock": stock}})
         app_logger.info(f"Stock updated: {seed_id} -> {stock}")
         return redirect(f"/admin/stock?lang={get_lang()}")
     except Exception as e:

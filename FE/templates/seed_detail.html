@@ -23,7 +23,7 @@
                 </div>
 
                 <div class="seed-price-box">
-                    <span class="seed-price">{{ "%.2f"|format(seed.price)|format_number(lang) }} MAD</span>
+                    <span class="seed-price">{{ "%.2f"|format(seed.sell_price)|format_number(lang) }} MAD</span>
                     <span class="seed-stock {{ 'out-of-stock' if seed.stock == 0 else '' }}">
                         {% if seed.stock > 0 %}
                             {{ seed.stock|format_number(lang) }} {{ t.stock if t.stock is defined else 'in stock' }}

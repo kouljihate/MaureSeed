@@ -2,6 +2,25 @@
 
 All notable changes to MaureSeed will be documented in this file.
 
+## [1.14.0] - 2026-09-08
+
+### Added
+- Custom Seed ID format: `S + Category(2) + Type(2) + Variety(2) + Sequence(2)`, e.g. `S01010101`
+- `shared/seed_id.py` module with category/type/variety ID mappings and ID generator
+- Cost price and sell price replaced the single `price` field
+- Admin seed list: cost/sell price columns and icon actions (edit, view, delete)
+- Admin pagination now shows total page count (`total_pages`)
+
+### Changed
+- Seed IDs are now used as MongoDB `_id` in the seeder
+- Storefront (homepage, catalogue, seed detail) shows sell price as the displayed price
+- Admin stock page shows sell price and English seed name
+- Admin edit/delete/stock routes support both ObjectId and custom string IDs
+
+### Fixed
+- Storefront and stock templates referenced removed `seed.price` field (blank prices)
+- Admin edit/delete/stock actions crashed with `InvalidId` on custom string seed IDs
+
 ## [1.13.1] - 2026-09-07
 
 ### Added

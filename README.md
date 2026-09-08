@@ -2,7 +2,7 @@
 
 > Organic & Ancient Seeds from North Africa 🌱
 
-**Version:** 1.13.1
+**Version:** 1.14.0
 
 ## Overview
 
@@ -17,6 +17,8 @@ Inspired by [semaille.com](https://semaille.com), MaureSeed adapts the concept t
 - **Heritage Varieties:** Ancient and traditional seed preservation
 - **Regional Focus:** Morocco, Algeria, Tunisia, Mauritania, Mali
 - **Reproducible Seeds:** Seeds that can be saved and replanted
+- **Seed IDs:** Unique IDs (`S` + category/type/variety/sequence) for every seed
+- **Cost & Sell Pricing:** Separate cost price and sell price per seed
 
 ## Tech Stack
 
@@ -41,6 +43,9 @@ MaureSeed/
 │   ├── logger.py        # Logging with error context
 │   ├── database.py      # MongoDB connection
 │   ├── i18n.py          # Internationalization
+│   ├── seed_id.py       # Custom seed ID generation
+│   ├── format.py        # Number formatting filters
+│   ├── roles.py         # User roles & auth
 │   └── utils.py         # Utility functions
 ├── config/              # Configuration
 │   ├── config.py        # App config
